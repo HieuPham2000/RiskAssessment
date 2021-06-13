@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Risk Assessment Admin</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" type="image/png" href="assets/image/logo.png"/>
+
+	<!-- Import lib -->
+	<!-- <link rel="stylesheet" type="text/css" href="assets/fontawesome-free/css/all.min.css"> -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/aa8e5675e3.js" crossorigin="anonymous"></script>
+	<!-- End import lib -->
+
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style_general.css">
+</head>
+<body class="overlay-scrollbar">
+	<!-- navbar -->
+	<div class="navbar">
+		<!-- nav left -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link">
+					<i class="fas fa-bars" onclick="collapseSidebar()"></i>
+				</a>
+			</li>
+			<li class="nav-item">
+				<img src="assets/image/logo_side-1_line-black.png" alt="logo" class="logo logo-light">
+				<img src="assets/image/logo_side-1_line-white.png" alt="logo" class="logo logo-dark">
+			</li>
+		</ul>
+		<!-- end nav left -->
+
+		<!-- nav right -->
+		<ul class="navbar-nav nav-right">
+			<li class="nav-item mode">
+				<a class="nav-link" href="#" onclick="switchTheme()">
+					<i class="fas fa-moon dark-icon"></i>
+					<i class="fas fa-sun light-icon"></i>
+				</a>
+			</li>
+			<li class="nav-item avt-wrapper">
+				<div class="avt dropdown">
+					<i class="fas fa-user user-icon dropdown-toggle" data-toggle="user-menu"></i>
+					<!-- <i class="fas fa-user dropdown-toggle" data-toggle="user-menu"></i> -->
+					<!-- <img src="assets/image/admin_avatar.png" alt="admin avatar" class="dropdown-toggle" data-toggle="user-menu"> -->
+					<ul id="user-menu" class="dropdown-menu">
+						<li  class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="user-info.html">
+								<div>
+									<i class="fas fa-user-tie"></i>
+								</div>
+								<span>Thông tin tài khoản</span>
+							</a>
+						</li>
+						<li class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="user-setting.html">
+								<div>
+									<i class="fas fa-cog"></i>
+								</div>
+								<span>Cài đặt</span>
+							</a>
+						</li>
+						<li  class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="login.html">
+								<div>
+									<i class="fas fa-sign-out-alt"></i>
+								</div>
+								<span>Đăng xuất</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<!-- end nav right -->
+	</div>
+	<!-- end navbar -->
+	<!-- sidebar -->
+	<div class="sidebar">
+		<ul class="sidebar-nav">
+			<li class="sidebar-nav-item">
+				<a href="system-manage.html" class="sidebar-nav-link active">
+					<div>
+						<i class="fas fa-network-wired"></i>
+					</div>
+					<span>
+						Tổng quan hệ thống
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
+				<a href="asset-manage.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-server"></i>
+					</div>
+					<span>Quản lý tài sản</span>
+				</a>
+			</li>
+			<li  class="sidebar-nav-item">
+				<a href="risk-manage.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-tasks"></i>
+					</div>
+					<span>Đánh giá rủi ro</span>
+				</a>
+			</li>
+			<li  class="sidebar-nav-item">
+				<a href="trouble-history.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-history"></i>
+					</div>
+					<span>Lịch sử sự cố</span>
+				</a>
+			</li>
+			<li  class="sidebar-nav-item">
+				<a href="report.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-chart-bar"></i>
+					</div>
+					<span>Thống kê - báo cáo</span>
+				</a>
+			</li>
+		
+		</ul>
+	</div>
+	<!-- end sidebar -->
+
+
+
+
+
+	<!-- main content -->
+	<div class="wrapper">
+		<p class="link_mark">Home > Tổng quan hệ thống</p>
+		<div class="row justify-content-center">
+			<div class="col-12 col-m-12 col-sm-12">
+				
+				<div>
+					<h2 class="notice">Thông tin hệ thống</h2>
+					<a class="link_btn right" href="system_action.html">Thao tác <i class="fas fa-cog"></i></a>
+				</div>
+        <div class="card">
+					<div class="card-header">
+						<h3>Tên hệ thống</h3>
+					</div>
+					<div class="card-content">
+						<p>Hệ thống Công tác sinh viên trường Đại học Bách khoa Hà Nội</p>
+						<p>Thời điểm tạo: <span>10:00 1/1/2020</span></p>
+						<p>Thời điểm cập nhật cuối: <span>12:00 2/2/2021</span></p>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h3>Mô tả hệ thống</h3>
+					</div>
+					<div class="card-content">
+						<ul>
+							<li>Cung cấp thông tin hoạt động ngoại khóa</li>
+							<li>Quản lý điểm rèn luyện của sinh viên</li>
+							<li>Cung cấp thông tin học bổng, chính sách</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h3>Hình ảnh</h3>
+					</div>
+					<div class="card-content">
+						<div class="img-container">
+							<div>
+								<img class="img-item" src="https://www.hust.edu.vn/documents/202812/348668/banne_01.jpg">
+							</div>
+							<div>
+								<img class="img-item" src="https://ctsv.hust.edu.vn/api-t/UploadFile/CTSV/DownloadImageAcitivity?AId=1022">
+							</div>
+							<div>
+								<img class="img-item" src="https://www.hust.edu.vn/documents/202812/348668/banne_01.jpg">
+							</div>
+							<div>
+								<img class="img-item" src="https://ctsv.hust.edu.vn/api-t/UploadFile/CTSV/DownloadImageAcitivity?AId=907">
+							</div>
+							<div>
+								<img class="img-item" src="https://www.hust.edu.vn/documents/202812/348668/banne_01.jpg">
+							</div>
+							<div>
+								<img class="img-item" src="https://www.hust.edu.vn/documents/202812/348668/banne_01.jpg">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+	<!-- end main content -->
+	<!-- import script -->
+	<script src="assets/js/index.js"></script>
+	<!-- end import script -->
+</body>
+</html>

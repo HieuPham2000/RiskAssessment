@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Risk Assessment Admin</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" type="image/png" href="assets/image/logo.png"/>
+
+	<!-- Import lib -->
+	<!-- <link rel="stylesheet" type="text/css" href="assets/fontawesome-free/css/all.min.css"> -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/aa8e5675e3.js" crossorigin="anonymous"></script>
+	<!-- End import lib -->
+
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style_general.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/form.css">
+</head>
+<body class="overlay-scrollbar">
+	<!-- navbar -->
+	<div class="navbar">
+		<!-- nav left -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link">
+					<i class="fas fa-bars" onclick="collapseSidebar()"></i>
+				</a>
+			</li>
+			<li class="nav-item">
+				<img src="assets/image/logo_side-1_line-black.png" alt="logo" class="logo logo-light">
+				<img src="assets/image/logo_side-1_line-white.png" alt="logo" class="logo logo-dark">
+			</li>
+		</ul>
+		<!-- end nav left -->
+
+		<!-- nav right -->
+		<ul class="navbar-nav nav-right">
+			<li class="nav-item mode">
+				<a class="nav-link" href="#" onclick="switchTheme()">
+					<i class="fas fa-moon dark-icon"></i>
+					<i class="fas fa-sun light-icon"></i>
+				</a>
+			</li>
+			<li class="nav-item avt-wrapper">
+				<div class="avt dropdown">
+					<i class="fas fa-user user-icon dropdown-toggle" data-toggle="user-menu"></i>
+					<!-- <i class="fas fa-user dropdown-toggle" data-toggle="user-menu"></i> -->
+					<!-- <img src="assets/image/admin_avatar.png" alt="admin avatar" class="dropdown-toggle" data-toggle="user-menu"> -->
+					<ul id="user-menu" class="dropdown-menu">
+						<li  class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="user-info.html">
+								<div>
+									<i class="fas fa-user-tie"></i>
+								</div>
+								<span>Thông tin tài khoản</span>
+							</a>
+						</li>
+						<li class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="user-setting.html">
+								<div>
+									<i class="fas fa-cog"></i>
+								</div>
+								<span>Cài đặt</span>
+							</a>
+						</li>
+						<li  class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="login.html">
+								<div>
+									<i class="fas fa-sign-out-alt"></i>
+								</div>
+								<span>Đăng xuất</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<!-- end nav right -->
+	</div>
+	<!-- end navbar -->
+	<!-- sidebar -->
+	<div class="sidebar">
+		<ul class="sidebar-nav">
+			<li class="sidebar-nav-item">
+				<a href="system-manage.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-network-wired"></i>
+					</div>
+					<span>
+						Tổng quan hệ thống
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
+				<a href="asset-manage.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-server"></i>
+					</div>
+					<span>Quản lý tài sản</span>
+				</a>
+			</li>
+			<li  class="sidebar-nav-item">
+				<a href="risk-manage.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-tasks"></i>
+					</div>
+					<span>Đánh giá rủi ro</span>
+				</a>
+			</li>
+			<li  class="sidebar-nav-item">
+				<a href="trouble-history.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-history"></i>
+					</div>
+					<span>Lịch sử sự cố</span>
+				</a>
+			</li>
+			<li  class="sidebar-nav-item">
+				<a href="report.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-chart-bar"></i>
+					</div>
+					<span>Thống kê - báo cáo</span>
+				</a>
+			</li>
+		
+		</ul>
+	</div>
+	<!-- end sidebar -->
+
+
+
+
+
+	<!-- main content -->
+	<div class="wrapper">
+		<p class="link_mark">Home > Thông tin tài khoản</p>
+		<div class="row align-items-center">
+			<div class="col-4 col-m-12 col-sm-12">
+				<img class="img_description" src="assets/image/user_info.svg">
+			</div>
+      <div class="col-8 col-m-12 col-sm-12">
+				<h2 class="form-title">Thông tin tài khoản</h2>
+        <form>
+          <div class="form-item">
+            <label for="name">Họ tên</label>
+            <input type="text" name="name" value="Phạm Trung Hiếu">
+          </div>
+  
+          <div class="form-item">
+            <label for="tel">Số điện thoại</label>
+            <input type="tel" name="tel" value="0365006650"
+						pattern="[0-9]{10}"
+						title="Số điện thoại dài 10 chữ số" >
+          </div>
+  
+          <div class="form-item">
+            <label for="email">Email</label>
+            <input type="email" name="email" value="hieu.pt183535@sis.hust.edu.vn">
+          </div>
+  
+          <!-- <div class="form-item">
+            <label id="gender-label">Giới tính</label>
+            <div>
+              <label for="gender"><input type="radio" name="gender" value="Nam" checked>Nam</label>
+              <label for="gender"><input type="radio" name="gender" value="Nữ">Nữ</label>
+              <label for="gender"><input type="radio" name="gender" value="Khác">Khác</label>
+            </div>
+          </div> -->
+          <div class="form-item">
+            <label for="company">Tổ chức</label>
+            <input type="text" name="company" value="HUST">
+          </div>
+          <div class="form-item">
+            <label for="position">Vị trí công việc</label>
+            <input type="text" name="position" value="Senior">
+          </div>
+          <div class="form-item">
+            <button type="submit" class="btn-type1" name="update-info" 
+						onclick="return confirm('Cập nhật thông tin?')"
+						value="">Cập nhật thông tin</button>
+          </div>
+        </form>
+			</div>
+		</div>
+	</div>
+	<!-- end main content -->
+	<!-- import script -->
+	<script src="assets/js/index.js"></script>
+	<!-- end import script -->
+</body>
+</html>

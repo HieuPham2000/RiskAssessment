@@ -82,3 +82,12 @@ function openCloseDropdown(event) {
 		}
 	}
 }
+
+function clickRow(event) {
+	// Khi click nó bắt sự kiện ở td
+	var link = event.target.parentElement.dataset.link;
+	window.location.href = link;
+	// console.log(event.target.parentElement);
+	// console.log(link);
+	// window.open(link);
+}
