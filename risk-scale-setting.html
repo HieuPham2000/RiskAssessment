@@ -138,12 +138,41 @@
 		<p class="link_mark">Home > Quản lý rủi ro > Cài đặt thang điểm đánh giá</p>
 		<div class="row justify-content-center">
       <div class="col-8 col-m-12 col-sm-12">
-        <form>
+        <form onkeydown="return event.key != 'Enter';">
+          <h4>Thang đo mức độ tác động</h4> 
+          <p>Thang điểm từ 0 đến 100</p>
+          <button type="button" class="btn-restore" onclick="setDefaultImpact()">Khôi phục cài đặt mặc định</button>
           <div class="form-item">
-            <label>Nhãn</label>
-						<div class="option_container">
-							<div class="tag_container" id="impact_container"></div>
-							<div>
+						<div class="container">
+							<div class="label_container" id="impact_container">
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="impact_label" name="impact_label" value="Không đáng kể" required>
+                  <input type="number" name="impact_score" value="0" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="impact_color" oninput="changeColor(event)">
+                </div>
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="impact_label" name="impact_label" value="Thấp" required>
+                  <input type="number" name="impact_score" value="10" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="impact_color" oninput="changeColor(event)">
+                </div>
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="impact_label" name="impact_label" value="Trung bình" required>
+                  <input type="number" name="impact_score" value="50" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="impact_color" oninput="changeColor(event)">
+                </div>
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="impact_label" name="impact_label" value="Cao" required>
+                  <input type="number" name="impact_score" value="100" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="impact_color" oninput="changeColor(event)">
+                </div>
+               
+              </div>
+							<div class="add_container">
+                <label>Thêm nhãn mới</label>
 								<input type="text" id="impact" placeholder="Nhập tên nhãn gán">
 								<span onclick="addInput('impact', 'impact_container')">
 									<i class="fas fa-plus-circle"></i>
@@ -152,86 +181,78 @@
 						</div>	
         	</div>
 
-					<div>
-						<h5>Thang đo mức độ tác động</h5>
-						<ul>
-							<li class="level" data-color="#00ff00">Không đáng kể: 0</li>
-							<li class="level" data-color="#00ff00">Thấp: 10</li>
-							<li class="level" data-color="#0000ff">Trung bình: 50</li>
-							<li class="level" data-color="#ff0000">Cao: 100</li>
-						</ul>
-					</div>
-					<div class="form-item">
-						<label>Mức độ tác động</label>
-						<div class="option_container">
-							<select onchange="changeScore(event)">
-								<option selected disabled>Chọn nhãn gán</option>
-								<option data-min="100" data-max="100">Cao</option>
-								<option data-min="50" data-max="50">Trung bình</option>
-								<option data-min="10" data-max="10">Thấp</option>
-								<option data-min="0" data-max="0">Không đáng kể</option>
-							</select>
-							<!-- onkeyup không ổn lắm -->
-							<input type="number" min="0" max="0" value="0" 
-							name="impact_score" id="impact_score" 
-							onblur="imposeMinMax(this)"
-							onchange="calRiskScore()">
-						</div>
-					</div>
+					
+					<hr class="hr_1px">
+			
+          <h4>Thang đo khả năng xảy ra</h4>
+          <p>Thang điểm từ 0 đến 100</p>
+          <button type="button" class="btn-restore" onclick="setDefaultLikelihood()">Khôi phục cài đặt mặc định</button>
+          <div class="form-item">
+						<div class="container">
+							<div class="label_container" id="likelihood_container">
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="likelihood_label" name="likelihood__label" value="Không đáng kể" required>
+                  <input type="number" name="likelihood_score" value="0" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="likelihood_color" oninput="changeColor(event)">
+                </div>
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="likelihood_label" name="likelihood_label" value="Thấp" required>
+                  <input type="number" name="likelihood_score" value="10" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="likelihood_color" oninput="changeColor(event)">
+                </div>
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="likelihood_label" name="likelihood_label" value="Trung bình" required>
+                  <input type="number" name="likelihood_score" value="50" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="likelihood_color" oninput="changeColor(event)">
+                </div>
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="likelihood_label" name="impact_label" value="Cao" required>
+                  <input type="number" name="likelihood_score" value="100" min="0" max="100" onblur="imposeMinMax(this)" required>
+                  <input type="color" name="likelihood_color" oninput="changeColor(event)">
+                </div>
+               
+              </div>
+							<div class="add_container">
+                <label>Thêm nhãn mới</label>
+								<input type="text" id="likelihood" placeholder="Nhập tên nhãn gán">
+								<span onclick="addInput('likelihood', 'likelihood_container')">
+									<i class="fas fa-plus-circle"></i>
+								</span>
+							</div>
+						</div>	
+        	</div>
 
-					<hr class="hr_4px">
-					<div>
-						<h5>Thang đo khả năng xảy ra</h5>
-						<ul>
-							<li class="level" data-color="#00ff00">Không đáng kể: 0</li>
-							<li class="level" data-color="#00ff00">Thấp: 10</li>
-							<li class="level" data-color="#0000ff">Trung bình: 50</li>
-							<li class="level" data-color="#ff0000">Cao: 100</li>
-						</ul>
-					</div>
-					<div class="form-item">
-						<label>Khả năng xảy ra</label>
-						<div class="option_container">
-							<select onchange="changeScore(event)">
-								<option selected disabled>Chọn nhãn gán</option>
-								<option data-min="100" data-max="100">Cao</option>
-								<option data-min="50" data-max="50">Trung bình</option>
-								<option data-min="10" data-max="10">Thấp</option>
-								<option data-min="0" data-max="0">Không đáng kể</option>
-							</select>
-							<input type="number" min="0" max="0" value="0" 
-							name="likelihood_score" id="likelihood_score" 
-							onblur="imposeMinMax(this)"
-							onchange="calRiskScore()">
-						</div>
-					</div>
 
 					<hr class="hr_1px">
-					<div>
-						<h5>Thang đo rủi ro</h5>
-						<ul>
-							<li class="level" data-color="#00ff00">Không đáng kể: Nhỏ hơn 1</li>
-							<li class="level" data-color="#00ff00">Thấp: 1 đến 10</li>
-							<li class="level" data-color="#0000ff">Trung bình: 11 đến 50</li>
-							<li class="level" data-color="#ff0000">Cao: 51 đến 100</li>
-						</ul>
-						<h5>Được tính tự động: Rủi ro = Mức độ tác động x (Khả năng xảy ra/100)</h5>
-					</div>
-					<div class="form-item">
-						<label>Mức độ rủi ro</label>
-						<div class="option_container">
-							<select id="risk_scale" style="display: none;">
-								<option selected disabled>Chọn nhãn gán</option>
-								<option data-min="51" data-max="100">Cao</option>
-								<option data-min="11" data-max="50">Trung bình</option>
-								<option data-min="1" data-max="10">Thấp</option>
-								<option data-min="0" data-max="0">Không đáng kể</option>
-							</select>
-							<input type="text" value="" id="risk_level" readonly>
-							<input type="number" value="0" name="risk_score" id="risk_score" readonly>
-						</div>
-					</div>
-
+          <h4>Thang đo rủi ro</h4>
+          <p>Thang điểm từ 0 đến 100. Được tính tự động: Rủi ro = Mức độ tác động x (Khả năng xảy ra/100)</p>
+          
+          <div class="form-item">
+						<div class="container">
+							<div class="label_container" id="risk_container">
+                <div>
+                  <i class="fas fa-minus-circle" onclick="removeInput(event)"></i>
+                  <input type="text" class="risk_label" name="risk__label" value="Không đáng kể" required>
+                  <input type="number" name="risk_score_min" value="0" min="0" max="100" readonly required>
+                  <input type="number" name="risk_score_max" value="0" min="0" max="100" onblur="imposeMinMaxRisk(event)" required>
+                  <input type="color" name="risk_color" oninput="changeColor(event)">
+                </div>
+                
+               
+              </div>
+							<div class="add_container">
+                <label>Thêm nhãn mới</label>
+								<input type="text" id="risk" placeholder="Nhập tên nhãn gán">
+								<span onclick="addInputRisk()">
+									<i class="fas fa-plus-circle"></i>
+								</span>
+							</div>
+						</div>	
+        	</div>
 					
 
           <div class="form-item justify-content-center">

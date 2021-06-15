@@ -666,3 +666,8 @@ th, td {
   border-radius: 2px;
   object-fit: cover;
 }
+
+input:read-only {
+	background-color: #ddd !important;
+	cursor: unset;
+}
