@@ -134,19 +134,129 @@
 	<!-- main content -->
 	<div class="wrapper">
 		<p class="link_mark">Home > Thống kê và báo cáo</p>
-		<div class="row justify-content-center">
-			<div class="col-6 col-m-12 col-sm-12">
-        <p class="notice">Báo cáo</p>
-				<img class="img_description" src="assets/image/report.svg">
-        
-				<a class="link_btn" href="#"></a>
-			</div>
-		
+		<div class="col-12 col-m-12 col-sm-12">
+				<a class="link_btn right" href="#">Xuất báo cáo <i class="fas fa-file"></i></a>
 		</div>
+
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+        <h2 class="notice">Thống kê sự cố</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-primary">
+					<h3>100</h3>
+					<p>Tổng số</p>
+				</div>
+			</div>
+
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-danger">
+					<h3>0</h3>
+					<p>Chưa xử lý</p>
+				</div>
+			</div>
+
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-warning">
+					<h3>90</h3>
+					<p>Đang xử lý</p>
+				</div>
+			</div>
+
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-success">
+					<h3>90</h3>
+					<p>Đã xử lý</p>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div style="overflow-x: auto;">
+					<div class="card">
+						<!-- <div class="card-header">
+							<h3>
+								Chartjs
+							</h3>
+						</div> -->
+						<div class="card-content">
+							<canvas id="trouble_chart"></canvas>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+        <h2 class="notice">Thống kê rủi ro</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-primary">
+					<h3>50</h3>
+					<p>Tổng số</p>
+				</div>
+			</div>
+
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-danger">
+					<h3>10</h3>
+					<p>Mức độ cao</p>
+				</div>
+			</div>
+
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-warning">
+					<h3>20</h3>
+					<p>Mức độ trung bình</p>
+				</div>
+			</div>
+
+			<div class="col-3 col-m-6 col-sm-6">
+				<div class="counter bg-success">
+					<h3>20</h3>
+					<p>Mức độ thấp</p>
+				</div>
+			</div>
+			
+		</div>
+
+
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div style="overflow-x: auto;">
+					<div class="card">
+						<!-- <div class="card-header">
+							<h3>
+								Chartjs
+							</h3>
+						</div> -->
+						<div class="card-content">
+							<canvas id="risk_chart"></canvas>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	
+
 	</div>
 	<!-- end main content -->
 	<!-- import script -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<script src="assets/js/index.js"></script>
+	<script src="assets/js/my_chart.js"></script>
 	<!-- end import script -->
 </body>
 </html>
