@@ -620,7 +620,7 @@ table th {
 	background-color: var(--input-bg-focus);
 }
 
-td {
+th, td {
 	font-size: 1.5rem;
 }
 /*  */

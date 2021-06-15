@@ -91,7 +91,7 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a href="asset-manage.html" class="sidebar-nav-link  active">
+				<a href="asset-manage.html" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-server"></i>
 					</div>
@@ -99,7 +99,7 @@
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="risk-manage.html" class="sidebar-nav-link">
+				<a href="risk-manage.html" class="sidebar-nav-link active">
 					<div>
 						<i class="fas fa-tasks"></i>
 					</div>
@@ -133,46 +133,13 @@
 
 	<!-- main content -->
 	<div class="wrapper">
-		<p class="link_mark">Home > Quản lý tài sản</p>
+		<p class="link_mark">Home > Đánh giá rủi ro</p>
 		<div class="row justify-content-center">
-			<div class="col-12 col-m-12 col-sm-12">
-				<div class="card">
-					<div class="card-header">
-						<h3>Danh sách tài sản</h3>
-						<a href="asset-add.html">
-							<i class="fas fa-plus-circle"></i>
-						</a>	
-					</div>
-
-					<div class="card-content">
-						<p>Số lượng: 1</p>
-						<table>
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Tên tài sản</th>
-									<!-- <th>Hình ảnh</th> -->
-									<th>Mô tả</th>
-									<th>Thời điểm tạo</th>
-									<th>Cập nhật cuối</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="row_link" data-link="asset_action.html" onclick="clickRow(event)">
-									<td>1</td>
-									<td>Máy chủ Tomcat</td>
-									<!-- <td></td> -->
-									<td>Máy chủ Java Servlet/JSP, phiên bản Apache Tomcat 9.0</td>
-									<td>12:00 1/1/2020</td>
-									<td>12:00 1/1/2020</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-				
+			<div class="col-6 col-m-12 col-sm-12">
+				<p class="notice">Chưa ghi nhận rủi ro</p>
+				<img class="img_description" src="assets/image/no_risk.svg">
         
+				<a class="link_btn" href="#">Thêm rủi ro mới</a>
 			</div>
 		
 		</div>

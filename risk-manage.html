@@ -14,6 +14,7 @@
 
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style_general.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/risk.css">
 </head>
 <body class="overlay-scrollbar">
 	<!-- navbar -->
@@ -134,12 +135,86 @@
 	<!-- main content -->
 	<div class="wrapper">
 		<p class="link_mark">Home > Đánh giá rủi ro</p>
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div>
+					<a class="link_btn right" href="risk-scale-setting.html">Cài đặt thang điểm đánh giá <i class="fas fa-cog"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-4 col-m-12 col-sm-12">
+				<label for="risk_level">Lọc theo mức độ rủi ro</label>
+				<select name="risk_level">
+					<option>Cao</option>
+					<option>Trung bình</option>
+					<option>Thấp</option>
+					<option>Không đáng kể</option>
+				</select>
+			</div>
+			<div class="col-4 col-m-12 col-sm-12">
+				<label for="sort">Sắp xếp</label>
+				<select name="sort">
+					<option>Thời gian cập nhật từ mới đến cũ</option>
+					<option>Thời gian cập nhật từ cũ đến mới</option>
+					<option>Theo ID tăng dần</option>
+					<option>Theo mức độ rủi ro tăng dần</option>
+					<option>Theo mức độ tác động tăng dần</option>
+					<option>Theo khả năng xảy ra tăng dần</option>
+				</select>
+			</div>
+		</div>
 		<div class="row justify-content-center">
-			<div class="col-6 col-m-12 col-sm-12">
-				<p class="notice">Chưa ghi nhận rủi ro</p>
-				<img class="img_description" src="assets/image/no_risk.svg">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>Danh sách rủi ro</h3>
+						
+						<a href="risk-add.html">
+							<i class="fas fa-plus-circle"></i>
+						</a>
+					</div>
+
+					<div class="card-content">
+						<p>Số lượng: 2</p>
+						<table>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Mô tả ngắn</th>
+									<th>Lỗ hổng</th>
+									<th>Nguồn đe dọa</th>
+									<th>Mức độ rủi ro</th>
+									<th>Mức độ tác động</th>
+									<th>Khả năng xảy ra</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="row_link" data-link="risk_action.html" onclick="clickRow(event)">
+									<td>2</td>
+									<td>Dữ liệu bị đánh cắp</td>
+									<td>Khả năng thực hiện SQL injection chưa được khắc phục akndwnd jakwndk jowdcknk owjdocm owdoaoc kajdkdn jfofjfjlf afkfj afdfsfj fjifij jpfjepjc pdoofjfjwojcpo </td>
+									<td>Hacker</td>
+									<td>Cao</td>
+									<td>Cao</td>
+									<td>Cao</td>
+								</tr>
+								<tr class="row_link" data-link="risk_action.html" onclick="clickRow(event)">
+									<td>1</td>
+									<td>Server bị sập</td>
+									<td>Bị tấn công DDOS</td>
+									<td>Hacker</td>
+									<td>Cao</td>
+									<td>Cao</td>
+									<td>Cao</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				
         
-				<a class="link_btn" href="#">Thêm rủi ro mới</a>
 			</div>
 		
 		</div>

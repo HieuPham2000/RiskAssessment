@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Risk Assessment Admin</title>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" type="image/png" href="assets/image/logo.png" />
+
+	<!-- Import lib -->
+	<!-- <link rel="stylesheet" type="text/css" href="assets/fontawesome-free/css/all.min.css"> -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/aa8e5675e3.js" crossorigin="anonymous"></script>
+	<!-- End import lib -->
+
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style_general.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/form.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/risk.css">
+</head>
+
+<body class="overlay-scrollbar">
+	<!-- navbar -->
+	<div class="navbar">
+		<!-- nav left -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link">
+					<i class="fas fa-bars" onclick="collapseSidebar()"></i>
+				</a>
+			</li>
+			<li class="nav-item">
+				<img src="assets/image/logo_side-1_line-black.png" alt="logo" class="logo logo-light">
+				<img src="assets/image/logo_side-1_line-white.png" alt="logo" class="logo logo-dark">
+			</li>
+		</ul>
+		<!-- end nav left -->
+
+		<!-- nav right -->
+		<ul class="navbar-nav nav-right">
+			<li class="nav-item mode">
+				<a class="nav-link" href="#" onclick="switchTheme()">
+					<i class="fas fa-moon dark-icon"></i>
+					<i class="fas fa-sun light-icon"></i>
+				</a>
+			</li>
+			<li class="nav-item avt-wrapper">
+				<div class="avt dropdown">
+					<i class="fas fa-user user-icon dropdown-toggle" data-toggle="user-menu"></i>
+					<!-- <i class="fas fa-user dropdown-toggle" data-toggle="user-menu"></i> -->
+					<!-- <img src="assets/image/admin_avatar.png" alt="admin avatar" class="dropdown-toggle" data-toggle="user-menu"> -->
+					<ul id="user-menu" class="dropdown-menu">
+						<li class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="user-info.html">
+								<div>
+									<i class="fas fa-user-tie"></i>
+								</div>
+								<span>Thông tin tài khoản</span>
+							</a>
+						</li>
+						<li class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="user-setting.html">
+								<div>
+									<i class="fas fa-cog"></i>
+								</div>
+								<span>Cài đặt</span>
+							</a>
+						</li>
+						<li class="dropdown-menu-item">
+							<a class="dropdown-menu-link" href="login.html">
+								<div>
+									<i class="fas fa-sign-out-alt"></i>
+								</div>
+								<span>Đăng xuất</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<!-- end nav right -->
+	</div>
+	<!-- end navbar -->
+	<!-- sidebar -->
+	<div class="sidebar">
+		<ul class="sidebar-nav">
+			<li class="sidebar-nav-item">
+				<a href="system-manage.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-network-wired"></i>
+					</div>
+					<span>
+						Tổng quan hệ thống
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
+				<a href="asset-manage.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-server"></i>
+					</div>
+					<span>Quản lý tài sản</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
+				<a href="risk-manage.html" class="sidebar-nav-link  active">
+					<div>
+						<i class="fas fa-tasks"></i>
+					</div>
+					<span>Đánh giá rủi ro</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
+				<a href="trouble-history.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-history"></i>
+					</div>
+					<span>Lịch sử sự cố</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
+				<a href="report.html" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-chart-bar"></i>
+					</div>
+					<span>Thống kê - báo cáo</span>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+	<!-- end sidebar -->
+
+
+
+
+
+	<!-- main content -->
+	<div class="wrapper">
+		<p class="link_mark">Home > Đánh giá rủi ro > Rủi ro #1</p>
+		<div class="row justify-content-center">
+			<div class="col-8 col-m-12 col-sm-12">
+
+				<h2 class="form-title">Chi tiết thông tin</h2>
+				<form>
+					<div class="form-item">
+            <label>Thời gian cập nhật lần cuối</label>
+            <input type="text" value="12:00 2/2/2020" readonly disabled>
+          </div>
+
+					<div class="form-item">
+            <label for="short_description">Mô tả ngắn <span>(*)</span></label>
+            <textarea name="short_description" rows="3" placeholder="Mô tả ngắn về rủi ro" required></textarea>
+          </div>
+
+					<div class="form-item">
+            <label>Tài sản liên quan</label>
+						<div class="option_container">
+							<div class="tag_container" id="tag_asset_container"></div>
+							<div>
+								<select id="tag_asset">
+									<option selected disabled="true">Chọn tài sản liên quan</option>
+									<option value="a">asset a</option>
+									<option value="b">asset b</option>
+									<option value="c">asset c</option>
+								</select>
+								<span onclick="addTag('tag_asset', 'tag_asset_container')">
+									<i class="fas fa-plus-circle"></i>
+								</span>
+							</div>
+						</div>	
+        	</div>
+					
+          <div class="form-item">
+            <label for="vulnerability">Lỗ hổng <span>(*)</span></label>
+            <textarea name="vulnerability" rows="5" placeholder="Chi tiết lỗ hổng" required></textarea>
+          </div>
+
+					<div class="form-item">
+						<label id="threat">Nguồn đe dọa <span>(*)</span></label>
+            <textarea name="threat" rows="5" placeholder="Nguồn đe dọa, hành động, động cơ..." required></textarea>
+          </div>
+  
+          <div class="form-item">
+            <label id="type-label">Loại nguồn đe dọa <span>(*)</span></label>
+            <div class="input-container">
+              <label for="threat-type">
+                <input type="radio" name="threat-type" value="human" checked>
+								Con người <span>(vô tình/cố ý truy cập, tấn công...)</span>
+              </label>
+              <label for="status">
+                <input type="radio" name="threat-type" value="natural">
+								Thiên nhiên <span>(lũ lụt, động đất...)</span>
+              </label>
+              <label for="status">
+                <input type="radio" name="threat-type" value="environmental">
+								Môi trường <span>(mất điện kéo dài, rò rỉ chất lỏng...)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <label for="solution">Biện pháp kiểm sát</label>
+            <textarea name="solution" rows="5" placeholder="Biện pháp kiếm soát hiện tại/dự định/đề xuất"></textarea>
+          </div>
+
+					<div class="form-item justify-content-center">
+						<button type="submit" name="update" onclick="return confirm('Xác nhận LƯU thay đổi?')" value="">Cập
+							nhật</button>
+						<a class="btn btn-type2" name="cancel" onclick="return confirm('Thay đổi sẽ KHÔNG được lưu?')"
+							href="risk-manage.html">Hủy</a>
+					</div>
+				</form>
+
+        <h2 class="form-title">Đánh giá rủi ro</h2>
+				<form>
+					<div>
+						<h5>Thang đo mức độ tác động</h5>
+						<ul>
+							<li class="level" data-color="#00ff00">Không đáng kể: 0</li>
+							<li class="level" data-color="#00ff00">Thấp: 10</li>
+							<li class="level" data-color="#0000ff">Trung bình: 50</li>
+							<li class="level" data-color="#ff0000">Cao: 100</li>
+						</ul>
+					</div>
+					<div class="form-item">
+						<label>Mức độ tác động</label>
+						<div class="option_container">
+							<select onchange="changeScore(event)">
+								<option selected disabled>Chọn nhãn gán</option>
+								<option data-min="100" data-max="100">Cao</option>
+								<option data-min="50" data-max="50">Trung bình</option>
+								<option data-min="10" data-max="10">Thấp</option>
+								<option data-min="0" data-max="0">Không đáng kể</option>
+							</select>
+							<!-- onkeyup không ổn lắm -->
+							<input type="number" min="0" max="0" value="0" 
+							name="impact_score" id="impact_score" 
+							onblur="imposeMinMax(this)"
+							onchange="calRiskScore()">
+						</div>
+					</div>
+
+					<hr class="hr_4px">
+					<div>
+						<h5>Thang đo khả năng xảy ra</h5>
+						<ul>
+							<li class="level" data-color="#00ff00">Không đáng kể: 0</li>
+							<li class="level" data-color="#00ff00">Thấp: 10</li>
+							<li class="level" data-color="#0000ff">Trung bình: 50</li>
+							<li class="level" data-color="#ff0000">Cao: 100</li>
+						</ul>
+					</div>
+					<div class="form-item">
+						<label>Khả năng xảy ra</label>
+						<div class="option_container">
+							<select onchange="changeScore(event)">
+								<option selected disabled>Chọn nhãn gán</option>
+								<option data-min="100" data-max="100">Cao</option>
+								<option data-min="50" data-max="50">Trung bình</option>
+								<option data-min="10" data-max="10">Thấp</option>
+								<option data-min="0" data-max="0">Không đáng kể</option>
+							</select>
+							<input type="number" min="0" max="0" value="0" 
+							name="likelihood_score" id="likelihood_score" 
+							onblur="imposeMinMax(this)"
+							onchange="calRiskScore()">
+						</div>
+					</div>
+
+					<hr class="hr_1px">
+					<div>
+						<h5>Thang đo rủi ro</h5>
+						<ul>
+							<li class="level" data-color="#00ff00">Không đáng kể: Nhỏ hơn 1</li>
+							<li class="level" data-color="#00ff00">Thấp: 1 đến 10</li>
+							<li class="level" data-color="#0000ff">Trung bình: 11 đến 50</li>
+							<li class="level" data-color="#ff0000">Cao: 51 đến 100</li>
+						</ul>
+						<h5>Được tính tự động: Rủi ro = Mức độ tác động x (Khả năng xảy ra/100)</h5>
+					</div>
+					<div class="form-item">
+						<label>Mức độ rủi ro</label>
+						<div class="option_container">
+							<select id="risk_scale" style="display: none;">
+								<option selected disabled>Chọn nhãn gán</option>
+								<option data-min="51" data-max="100">Cao</option>
+								<option data-min="11" data-max="50">Trung bình</option>
+								<option data-min="1" data-max="10">Thấp</option>
+								<option data-min="0" data-max="0">Không đáng kể</option>
+							</select>
+							<input type="text" value="" id="risk_level" readonly>
+							<input type="number" value="0" name="risk_score" id="risk_score" readonly>
+						</div>
+					</div>
+
+          <div class="form-item justify-content-center">
+						<button type="submit" name="update_assessment" onclick="return confirm('Xác nhận LƯU thay đổi?')" value="">Cập
+							nhật đánh giá</button>
+						<a class="btn btn-type2" name="cancel" onclick="return confirm('Thay đổi sẽ KHÔNG được lưu?')"
+							href="risk-manage.html">Hủy</a>
+					</div>
+				</form>
+
+				<h2 class="form-title">Xóa rủi ro</h2>
+				<form>
+					<p>Rủi ro bị xóa sẽ không thể hoàn tác. Hãy cân nhắc chắc chắn.</p>
+					<div class="form-item">
+						<button class="btn-danger" type="submit" name="delete"
+							onclick="return confirm('Bạn chắc chắn muốn XÓA rủi ro #1?')" value="">Xóa rủi ro</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- end main content -->
+	<!-- import script -->
+	<script src="assets/js/index.js"></script>
+	<script src="assets/js/select.js"></script>
+  <script src="assets/js/risk.js"></script>
+	<!-- end import script -->
+</body>
+
+</html>

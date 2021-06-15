@@ -35,6 +35,17 @@ form > p {
   bottom: 0;
   left: 0;
 } */
+hr.hr_2px {
+  border: none;
+  height: 4px;
+  background-color: #ddd;
+}
+
+hr.hr_1px {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+}
 .form-item > label:first-child {
   font-size: 1.5rem;
   padding-top: 1rem;
@@ -180,7 +191,7 @@ textarea:placeholder-shown {
   width: 100%;
 }
 
-.option_container select {
+.option_container select, .option_container input[type=text] {
   width: 80%;
   padding: 1rem 1.8rem;
   outline: none;
@@ -189,7 +200,7 @@ textarea:placeholder-shown {
   background-color: var(--input-bg);
 }
 
-.option_container select:focus {
+.option_container select:focus, .option_container input[type=text]:focus {
   border: 2px solid var(--input-border-focus);
   background-color: var(--input-bg-focus);
 }
