@@ -35,7 +35,7 @@ public class SystemController extends HttpServlet {
 			List<UserSystem> listUserSystems = userSystemDAO.get(user.getId());
 			request.setAttribute("listUserSystems", listUserSystems);
 			
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/views/systemView.jsp");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemView.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			response.sendRedirect(request.getContextPath() + "/login");

@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		if(user == null) {
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/views/loginView.jsp");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/system"); 
@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
 			String errorMessage = "Tên đăng nhập hoặc Mật khẩu không hợp lệ";
 			 
             request.setAttribute("errorMessage", errorMessage);
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/views/loginView.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
             dispatcher.forward(request, response);
             return;
 		} else {
