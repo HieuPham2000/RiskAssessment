@@ -8,8 +8,8 @@ create table users(
 	id int not null identity(1, 1) primary key,
 	email nvarchar(50) unique not null,
 	username varchar(50) unique not null,
-	password varchar(30) not null,
-	name nvarchar(50) not null,
+	password text not null,
+	name nvarchar(50),
 	phone char(12),
 	organization nvarchar(100),
 	position nvarchar(100),
@@ -19,8 +19,8 @@ create table users(
 
 create table systems(
 	id int not null identity(1, 1) primary key,
-	name nvarchar(200) unique not null,
-	desciption ntext not null,
+	name nvarchar(200) not null,
+	description ntext not null,
 	created_time datetime default current_timestamp,
 	modified_time datetime default current_timestamp
 );
@@ -62,7 +62,7 @@ create table likelihood_levels(
 	id int not null identity(1, 1) primary key,
 	[level] nvarchar(50) not null,
 	score int not null,
-	color char(7) not null
+	color char(7) not null default '#000000'
 );
 
 
@@ -70,7 +70,7 @@ create table impact_levels(
 	id int not null identity(1, 1) primary key,
 	[level] nvarchar(50) not null,
 	score int not null,
-	color char(7) not null
+	color char(7) not null default '#000000'
 );
 
 create table risk_levels(
@@ -78,7 +78,7 @@ create table risk_levels(
 	[level] nvarchar(50) not null,
 	range_min int not null,
 	range_max int not null,
-	color char(7) not null
+	color char(7) not null default '#000000'
 );
 
 

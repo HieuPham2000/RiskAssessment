@@ -6,13 +6,19 @@ public class RiskLevel {
 	private String level;
 	private int range_min;
 	private int range_max;
+	private String color;
 	
-	public RiskLevel(int id, String level, int range_min, int range_max) {
+	public RiskLevel() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public RiskLevel(int id, String level, int range_min, int range_max, String color) {
 		super();
 		this.id = id;
 		this.level = level;
 		this.range_min = range_min;
 		this.range_max = range_max;
+		this.color = color;
 	}
 
 	public int getId() {
@@ -47,11 +53,21 @@ public class RiskLevel {
 		this.range_max = range_max;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	@Override
 	public String toString() {
 		return "RiskLevel [id=" + id + ", level=" + level + ", range_min=" + range_min + ", range_max=" + range_max
-				+ "]";
+				+ ", color=" + color + "]";
 	}
+
+	
 	
 	
 }

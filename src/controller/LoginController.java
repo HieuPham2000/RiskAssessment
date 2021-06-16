@@ -10,20 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import dao.UserDAO;
 import dao.impl.UserDAOImpl;
 import model.User;
 
-/**
- * Servlet implementation class LoginController
- */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     public LoginController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,8 +34,6 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/system"); 
 		}
 		
-//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/views/loginView.jsp");
-//		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,12 +41,14 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		UserDAO userDAO = new UserDAOImpl();
-		User user = userDAO.get(username, password);
+		User user = userDAO.get(username);
 		
-		if(user == null) {
-			String errorMessage = "Tên đăng nhập hoặc Mật khẩu không hợp lệ";
+		if(user == null || checkPass(password, user.getPassword()) == false) {
+			String errorMessage = "Tên đăng nhập hoặc Mật khẩu không đúng!";
 			 
             request.setAttribute("errorMessage", errorMessage);
+            request.setAttribute("uname", username);
+            request.setAttribute("pwd", password);
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
             dispatcher.forward(request, response);
             return;
@@ -59,8 +57,13 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("user", user);
 			response.sendRedirect(request.getContextPath() + "/system"); 
 		}
-		
-		
+	}
+	
+	private boolean checkPass(String plainPassword, String hashedPassword) {
+		if (BCrypt.checkpw(plainPassword, hashedPassword))
+			return true;
+		else
+			return false;
 	}
 
 }

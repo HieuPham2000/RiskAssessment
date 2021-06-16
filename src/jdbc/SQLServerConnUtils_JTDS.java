@@ -12,7 +12,7 @@ public class SQLServerConnUtils_JTDS {
          throws SQLException, ClassNotFoundException {
      String hostName = "DESKTOP-67E139F";
      String sqlInstanceName = "SQLEXPRESS";
-     String database = "risk_assessment";
+     String database = "risk_assessment2";
      String userName = "sa";
      String password = "123456789";
  

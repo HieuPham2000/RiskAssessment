@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +27,27 @@
 <body class="overlay-scrollbar">
   <jsp:include page="_navbar.jsp"></jsp:include>
   <jsp:include page="_sidebar.jsp">
-    <jsp:param value="true" name="report_active" />
+    <jsp:param value="true" name="asset_active" />
   </jsp:include>
 
   <!-- main content -->
   <div class="wrapper">
     <p class="link_mark">Home > Quản lý tài sản</p>
-    <div class="row justify-content-center">
+    
+    <c:choose>
+      <c:when test="${assets == null}">
+        <div class="row justify-content-center">
+          <div class="col-6 col-m-12 col-sm-12">
+            <p class="notice">Chưa khởi tạo thông tin về tài sản</p>
+            <img class="img_description" src="assets/image/no_asset.svg">
+
+            <a class="link_btn" href="${pageContext.request.contextPath}/asset/add">Thêm tài sản mới</a>
+          </div>
+
+        </div>
+      </c:when>
+      <c:otherwise>
+        <div class="row justify-content-center">
       <div class="col-12 col-m-12 col-sm-12">
         <div class="card">
           <div class="card-header">
@@ -43,7 +57,7 @@
           </div>
 
           <div class="card-content">
-            <p>Số lượng: 1</p>
+            <p>Số lượng: ${assets.size()}</p>
             <table>
               <thead>
                 <tr>
@@ -56,16 +70,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="row_link" data-link="asset_action.html"
+                <c:forEach items="${assets }" var="asset">
+                  <tr class="row_link" data-link="action?id=${asset.id}"
                   onclick="clickRow(event)">
-                  <td>1</td>
-                  <td>Máy chủ Tomcat</td>
-                  <!-- <td></td> -->
-                  <td>Máy chủ Java Servlet/JSP, phiên bản Apache
-                    Tomcat 9.0</td>
-                  <td>12:00 1/1/2020</td>
-                  <td>12:00 1/1/2020</td>
-                </tr>
+                    <td>${fn:escapeXml(asset.id) }</td>
+                    <td>${fn:escapeXml(asset.name) }</td>
+                    <td>${fn:escapeXml(asset.description) }</td>
+                    <td>${fn:escapeXml(asset.created_time) }</td>
+                    <td>${fn:escapeXml(asset.modified_time) }</td>
+                  </tr>
+                </c:forEach>
+                
               </tbody>
             </table>
           </div>
@@ -76,6 +91,9 @@
       </div>
 
     </div>
+      </c:otherwise>
+    </c:choose>
+    
   </div>
   <!-- end main content -->
   <!-- import script -->

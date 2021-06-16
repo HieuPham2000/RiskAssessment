@@ -9,8 +9,8 @@
         </a>
       </li>
       <li class="nav-item">
-        <img src="assets/image/logo_side-1_line-black.png" alt="logo" class="logo logo-light">
-        <img src="assets/image/logo_side-1_line-white.png" alt="logo" class="logo logo-dark">
+        <img src="${pageContext.request.contextPath}/assets/image/logo_side-1_line-black.png" alt="logo" class="logo logo-light">
+        <img src="${pageContext.request.contextPath}/assets/image/logo_side-1_line-white.png" alt="logo" class="logo logo-dark">
       </li>
     </ul>
     <!-- end nav left -->
@@ -30,7 +30,7 @@
           <!-- <img src="assets/image/admin_avatar.png" alt="admin avatar" class="dropdown-toggle" data-toggle="user-menu"> -->
           <ul id="user-menu" class="dropdown-menu">
             <li  class="dropdown-menu-item">
-              <a class="dropdown-menu-link" href="${pageContext.request.contextPath}/userInfo">
+              <a class="dropdown-menu-link" href="${pageContext.request.contextPath}/user/info">
                 <div>
                   <i class="fas fa-user-tie"></i>
                 </div>
@@ -38,7 +38,7 @@
               </a>
             </li>
             <li class="dropdown-menu-item">
-              <a class="dropdown-menu-link" href="${pageContext.request.contextPath}/userSetting">
+              <a class="dropdown-menu-link" href="${pageContext.request.contextPath}/user/setting">
                 <div>
                   <i class="fas fa-cog"></i>
                 </div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <head>
@@ -32,7 +33,7 @@
           <label class="label-item" for="username">Tên đăng nhập</label>
           <span>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">Đăng ký</a></span>
         </div>
-        <input type="text" placeholder="Nhập tên đăng nhập" name="username" required>
+        <input type="text" placeholder="Nhập tên đăng nhập" name="username" value="${fn:escapeXml(uname)}" required>
 
         <div class="label-container">
           <label class="label-item" for="password">Mật khẩu</label>
@@ -45,10 +46,10 @@
             <span>Ẩn</span>
           </div>
         </div>
-        <input type="password" placeholder="Nhập mật khẩu" name="password" id="password" required>
+        <input type="password" placeholder="Nhập mật khẩu" name="password" value="${fn:escapeXml(pwd)}" id="password" required>
         
-        <label><input type="checkbox" style="transform: scale(1.5);" checked="checked" name="remember">Lưu thông tin đăng nhập</label>
-        <p style="color: var(--danger-color);"><c:out value="${errorString}"></c:out></p>
+<!--         <label><input type="checkbox" style="transform: scale(1.5);" checked="checked" name="remember">Lưu thông tin đăng nhập</label> -->
+        <p style="color: var(--danger-color);"><c:out value="${errorMessage}"></c:out></p>
         <input type="submit" value="Đăng Nhập">
       </div>
     </form>
