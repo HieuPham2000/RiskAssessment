@@ -43,7 +43,7 @@ create table user_system(
 create table assets(
 	id int not null identity(1, 1) primary key,
 	name nvarchar(100) unique not null,
-	desciption ntext not null,
+	description ntext not null,
 	system_id int not null,
 	created_time datetime default current_timestamp,
 	modified_time datetime default current_timestamp,

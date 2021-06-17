@@ -59,7 +59,7 @@
 						<label>Preview ảnh</label>
             <div id="img-container">
               <c:forEach items="${images}" var="link">
-                  <img class="img-item" src="${link }">
+                  <img class="img-item" src="${pageContext.request.contextPath}/${link }">
               </c:forEach>
             </div>
             <script>
@@ -86,7 +86,7 @@
 
           <div class="form-item">
             <label for="description">Mô tả <span>(*)</span></label>
-            <textarea name="description" rows="5" placeholder="Nhập mô tả hệ thống" value="${fn:escapeXml(system.description) }" required></textarea>
+            <textarea name="description" rows="5" placeholder="Nhập mô tả hệ thống" required>${fn:escapeXml(system.description) }</textarea>
           </div>
  
           <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
@@ -94,7 +94,7 @@
             <button type="submit" name="action" 
 						onclick="return confirm('Xác nhận LƯU thay đổi?')"
 						value="update">Cập nhật</button>
-            <a class="btn btn-type2" name="cancel" 
+            <a class="btn btn-type2"
 						onclick="return confirm('Thay đổi sẽ KHÔNG được lưu?')"
 						href="${pageContext.request.contextPath}/system">Hủy</a>
           </div>

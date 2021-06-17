@@ -35,10 +35,10 @@
     <p class="link_mark">Home > Quản lý tài sản</p>
     
     <c:choose>
-      <c:when test="${assets == null}">
+      <c:when test="${assets == null || assets.size() == 0}">
         <div class="row justify-content-center">
           <div class="col-6 col-m-12 col-sm-12">
-            <p class="notice">Chưa khởi tạo thông tin về tài sản</p>
+            <p class="notice">Thông tin về tài sản trống</p>
             <img class="img_description" src="assets/image/no_asset.svg">
 
             <a class="link_btn" href="${pageContext.request.contextPath}/asset/add">Thêm tài sản mới</a>
@@ -52,7 +52,7 @@
         <div class="card">
           <div class="card-header">
             <h3>Danh sách tài sản</h3>
-            <a href="asset-add.html"> <i class="fas fa-plus-circle"></i>
+            <a href="${pageContext.request.contextPath}/asset/add"> <i class="fas fa-plus-circle"></i>
             </a>
           </div>
 
@@ -71,7 +71,7 @@
               </thead>
               <tbody>
                 <c:forEach items="${assets }" var="asset">
-                  <tr class="row_link" data-link="action?id=${asset.id}"
+                  <tr class="row_link" data-link="asset/action?id=${asset.id}"
                   onclick="clickRow(event)">
                     <td>${fn:escapeXml(asset.id) }</td>
                     <td>${fn:escapeXml(asset.name) }</td>

@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/views/_navbar.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/assetActionView.jsp=UTF-8
+encoding//WebContent/WEB-INF/views/assetAddView.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/assetView.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/riskView.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/systemActionView.jsp=UTF-8
