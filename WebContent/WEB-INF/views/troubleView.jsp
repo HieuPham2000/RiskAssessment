@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,21 +25,36 @@
     <jsp:param value="true" name="trouble_active"/>
   </jsp:include>
   
+  
+  
   <!-- main content -->
   <div class="wrapper">
     <p class="link_mark">Home > Lịch sử sự cố</p>
-    <div class="row justify-content-center">
+    <c:choose>
+    <c:when test="${troubles == null || troubles.size() == 0 }">
+      <div class="row justify-content-center">
+      <div class="col-6 col-m-12 col-sm-12">
+        <p class="notice">Chưa ghi nhận sự cố</p>
+        <img class="img_description" src="assets/image/no_history.svg">
+        
+        <a class="link_btn" href="${pageContext.request.contextPath}/trouble/add">Ghi nhận sự cố mới</a>
+      </div>
+    
+    </div>
+    </c:when>
+    <c:otherwise>
+      <div class="row justify-content-center">
       <div class="col-12 col-m-12 col-sm-12">
         <div class="card">
           <div class="card-header">
             <h3>Danh sách sự cố</h3>
-            <a href="trouble-add.html">
+            <a href="${pageContext.request.contextPath}/trouble/add">
               <i class="fas fa-plus-circle"></i>
             </a>
           </div>
 
           <div class="card-content">
-            <p>Số lượng: 2</p>
+            <p>Số lượng: ${trouble.size()}</p>
             <table>
               <thead>
                 <tr>
@@ -53,34 +68,30 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="row_link" data-link="trouble_action.html" onclick="clickRow(event)">
-                  <td>2</td>
-                  <td>Lỗi kết nối cơ sở dữ liệu</td>
-                  <td>Lỗi kết nối cơ sở dữ liệu MS SQL Server, lỗi TCP/IP</td>
+              <c:forEach items="troubles" var="trouble">
+                <tr class="row_link" data-link="trouble/action?id=${trouble.id}" onclick="clickRow(event)">
+                  <td>${trouble.id}</td>
+                  <td>${fn:escapeXml(trouble.short_description)}</td>
+                  <td>${fn:escapeXml(trouble.detail)}</td>
                   <td>
-                    <span class="dot">
-                      <i class="bg-success"></i>
-                      Đã xử lý
-                    </span>
+                  <c:choose>
+                    <c:when test="${trouble.status == 0}">
+                      <span class="dot"><i class="bg-danger"></i>Chưa xử lý</span>
+                    </c:when>
+                    <c:when test="${trouble.status == 1}">
+                      <span class="dot"><i class="bg-warning"></i>Đang xử lý</span>
+                    </c:when>
+                    <c:when test="${trouble.status == 2}">
+                      <span class="dot"><i class="bg-success"></i>Đã xử lý</span>
+                    </c:when>
+                  </c:choose>
+                    
                   </td>
-                  <!-- <td>Do xung đột cổng ứng dụng. Thay đổi cổng ứng dụng.</td> -->
-                  <td>11:15 2/1/2020</td>
-                  <td>11:20 2/1/2020</td>
+                  <td>${fn:escapeXml(trouble.time_happen)}</td>
+                  <td>${fn:escapeXml(trouble.modified_time)}</td>
                 </tr>
-                <tr class="row_link" data-link="trouble_action.html" onclick="clickRow(event)">
-                  <td>1</td>
-                  <td>Lỗi máy chủ Tomcat</td>
-                  <td>Máy chủ dừng đột ngột</td>
-                  <td>
-                    <span class="dot">
-                      <i class="bg-success"></i>
-                      Đã xử lý
-                    </span>
-                  </td>
-                  <!-- <td>Do lỗi config servlet. Thay đổi đường dẫn cho đúng.</td> -->
-                  <td>12:00 1/1/2020</td>
-                  <td>12:00 1/1/2020</td>
-                </tr>
+              </c:forEach>
+                
               </tbody>
             </table>
           </div>
@@ -91,6 +102,9 @@
       </div>
     
     </div>
+    </c:otherwise>
+  </c:choose>
+    
   </div>
   <!-- end main content -->
   <!-- import script -->

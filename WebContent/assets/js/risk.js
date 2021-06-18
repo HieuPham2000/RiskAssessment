@@ -1,8 +1,8 @@
-// var list_li = document.getElementsByClassName("level");
+var list_li = document.getElementsByClassName("level");
 
-// for(var i = 0; i < list_li.length; ++i) {
-//   list_li[i].style.color = list_li[i].getAttribute("data-color");
-// }
+for(var i = 0; i < list_li.length; ++i) {
+   list_li[i].style.color = list_li[i].getAttribute("data-color");
+}
 
 
 var impact = document.getElementById('impact_score');

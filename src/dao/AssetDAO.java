@@ -14,4 +14,8 @@ public interface AssetDAO {
 	Asset get(int id);
 	
 	List<Asset> getAllAssetsInSystem(int system_id);
+	
+	List<Asset> getAssetsOfRisk(int risk_id);
+	
+	List<Asset> getAssetsOfTrouble(int trouble_id);
 }

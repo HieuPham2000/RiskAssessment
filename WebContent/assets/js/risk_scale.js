@@ -56,6 +56,7 @@ function addInput(input_id, container_id) {
     <input type="text" class="${input_id}_label" name="${input_id}_label" value="${value}" required>
     <input type="number" name="${input_id}_score" value="" min="0" max="100" onblur="imposeMinMax(this)" required>
     <input type="color" name="${input_id}_color" oninput="changeColor(event)">
+    <input type="hidden" name="${input_id}_id" value="-1">
   </div>`;
   container_element.insertAdjacentHTML("beforeend", str);
 }
@@ -92,6 +93,7 @@ function addInputRisk() {
     <input type="number" name="risk_score_min" value="${threshold}" min="0" max="100" readonly required>
     <input type="number" name="risk_score_max" value="${threshold}" min="${threshold}" max="100" onblur="imposeMinMaxRisk(event)" required>
     <input type="color" name="risk_color" oninput="changeColor(event)">
+    <input type="hidden" name="risk_level_id" value="-1">
   </div>`;
   container_element.insertAdjacentHTML("beforeend", str);
 }

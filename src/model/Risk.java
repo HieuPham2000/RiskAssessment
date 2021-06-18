@@ -8,9 +8,10 @@ public class Risk {
 	private String threat;
 	private int threat_type;
 	private String solution;
+	private int system_id;
 	private int likelihood_level_id;
 	private int impact_level_id;
-	private int risk_level_id;
+	private double risk_score;
 	private String created_time;
 	private String modified_time;
 	
@@ -18,9 +19,25 @@ public class Risk {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Risk(int id, String short_description, String flaw, String threat, int threat_type, String solution,
-			int likelihood_level_id, int impact_level_id, int risk_level_id, String created_time,
-			String modified_time) {
+	
+
+	public Risk(String short_description, String flaw, String threat, int threat_type, String solution, int system_id,
+			int likelihood_level_id, int impact_level_id) {
+		super();
+		this.short_description = short_description;
+		this.flaw = flaw;
+		this.threat = threat;
+		this.threat_type = threat_type;
+		this.solution = solution;
+		this.system_id = system_id;
+		this.likelihood_level_id = likelihood_level_id;
+		this.impact_level_id = impact_level_id;
+	}
+
+	
+
+
+	public Risk(int id, String short_description, String flaw, String threat, int threat_type, String solution) {
 		super();
 		this.id = id;
 		this.short_description = short_description;
@@ -28,21 +45,9 @@ public class Risk {
 		this.threat = threat;
 		this.threat_type = threat_type;
 		this.solution = solution;
-		this.likelihood_level_id = likelihood_level_id;
-		this.impact_level_id = impact_level_id;
-		this.risk_level_id = risk_level_id;
-		this.created_time = created_time;
-		this.modified_time = modified_time;
 	}
 
-	public Risk(int id, String short_description, String flaw, String threat, int threat_type) {
-		super();
-		this.id = id;
-		this.short_description = short_description;
-		this.flaw = flaw;
-		this.threat = threat;
-		this.threat_type = threat_type;
-	}
+
 
 	public int getId() {
 		return id;
@@ -108,14 +113,6 @@ public class Risk {
 		this.impact_level_id = impact_level_id;
 	}
 
-	public int getRisk_level_id() {
-		return risk_level_id;
-	}
-
-	public void setRisk_level_id(int risk_level_id) {
-		this.risk_level_id = risk_level_id;
-	}
-
 	public String getCreated_time() {
 		return created_time;
 	}
@@ -132,13 +129,30 @@ public class Risk {
 		this.modified_time = modified_time;
 	}
 
-	@Override
-	public String toString() {
-		return "Risk [id=" + id + ", short_description=" + short_description + ", flaw=" + flaw + ", threat=" + threat
-				+ ", threat_type=" + threat_type + ", solution=" + solution + ", likelihood_level_id="
-				+ likelihood_level_id + ", impact_level_id=" + impact_level_id + ", risk_level_id=" + risk_level_id
-				+ ", created_time=" + created_time + ", modified_time=" + modified_time + "]";
+
+
+	public int getSystem_id() {
+		return system_id;
 	}
+
+
+
+	public void setSystem_id(int system_id) {
+		this.system_id = system_id;
+	}
+
+
+
+	public double getRisk_score() {
+		return risk_score;
+	}
+
+
+
+	public void setRisk_score(double risk_score) {
+		this.risk_score = risk_score;
+	}
+
 	
 	
 	

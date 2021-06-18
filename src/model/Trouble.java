@@ -6,6 +6,7 @@ public class Trouble {
 	private String short_description;
 	private String detail;
 	private int status;
+	private int system_id;
 	private String time_happen;
 	private String created_time;
 	private String modified_time;
@@ -14,17 +15,22 @@ public class Trouble {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Trouble(int id, String short_description, String detail, int status, String time_happen, String created_time,
-			String modified_time) {
+	
+
+	public Trouble(int id, String short_description, String detail, int status, int system_id, String time_happen,
+			String created_time, String modified_time) {
 		super();
 		this.id = id;
 		this.short_description = short_description;
 		this.detail = detail;
 		this.status = status;
+		this.system_id = system_id;
 		this.time_happen = time_happen;
 		this.created_time = created_time;
 		this.modified_time = modified_time;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -82,12 +88,18 @@ public class Trouble {
 		this.modified_time = modified_time;
 	}
 
-	@Override
-	public String toString() {
-		return "Trouble [id=" + id + ", short_description=" + short_description + ", detail=" + detail + ", status="
-				+ status + ", time_happen=" + time_happen + ", created_time=" + created_time + ", modified_time="
-				+ modified_time + "]";
+
+
+	public int getSystem_id() {
+		return system_id;
 	}
+
+
+
+	public void setSystem_id(int system_id) {
+		this.system_id = system_id;
+	}
+
 	
 	
 }

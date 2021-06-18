@@ -62,25 +62,79 @@ create table likelihood_levels(
 	id int not null identity(1, 1) primary key,
 	[level] nvarchar(50) not null,
 	score int not null,
-	color char(7) not null default '#000000'
+	color char(7) not null default '#000000',
+	system_id int not null,
+	foreign key (system_id) references systems(id) on delete cascade
 );
+
+alter table likelihood_levels
+add system_id int;
+
+alter table likelihood_levels
+add foreign key (system_id) references systems(id) on delete cascade
 
 
 create table impact_levels(
 	id int not null identity(1, 1) primary key,
 	[level] nvarchar(50) not null,
 	score int not null,
-	color char(7) not null default '#000000'
+	color char(7) not null default '#000000',
+	system_id int not null,
+	foreign key (system_id) references systems(id) on delete cascade
 );
+
+alter table impact_levels
+add system_id int;
+
+alter table impact_levels
+add foreign key (system_id) references systems(id) on delete cascade
 
 create table risk_levels(
 	id int not null identity(1, 1) primary key,
 	[level] nvarchar(50) not null,
 	range_min int not null,
 	range_max int not null,
-	color char(7) not null default '#000000'
+	color char(7) not null default '#000000',
+	system_id int not null,
+	foreign key (system_id) references systems(id) on delete cascade
 );
 
+alter table risk_levels
+add system_id int;
+
+alter table risk_levels
+add foreign key (system_id) references systems(id) on delete cascade
+
+
+create trigger likelihood_system_insert
+on systems for insert as
+declare @id int
+select @id = id from inserted
+insert into likelihood_levels(level, score, color, system_id) values
+(N'Cao', 100, '#eb4d4b', @id),
+(N'Trung bình', 50, '#f0932b', @id),
+(N'Thấp', 10, '#4834d4', @id),
+(N'Không đáng kể', 0, '#6ab04c', @id);
+
+create trigger impact_system_insert
+on systems for insert as
+declare @id int
+select @id = id from inserted
+insert into impact_levels(level, score, color, system_id) values
+(N'Cao', 100, '#eb4d4b', @id),
+(N'Trung bình', 50, '#f0932b', @id),
+(N'Thấp', 10, '#4834d4', @id),
+(N'Không đáng kể', 0, '#6ab04c', @id);
+
+create trigger risklevel_system_insert
+on systems for insert as
+declare @id int
+select @id = id from inserted
+insert into risk_levels(level, range_min, range_max, color, system_id) values
+(N'Cao', 51, 100, '#eb4d4b', @id),
+(N'Trung bình', 11, 50, '#f0932b', @id),
+(N'Thấp', 1, 10, '#4834d4', @id),
+(N'Không đáng kể', 0, 0, '#6ab04c', @id);
 
 create table risks(
 	id int not null identity(1, 1) primary key,
@@ -89,15 +143,27 @@ create table risks(
 	threat nvarchar(200) not null,
 	threat_type int not null,
 	solution ntext,
+	system_id int not null,
 	likelihood_level_id int,
 	impact_level_id int,
-	risk_level_id int,
+	risk_score float,
 	created_time datetime default current_timestamp,
 	modified_time datetime default current_timestamp,
+	foreign key (system_id) references systems(id) on delete cascade,
 	foreign key (likelihood_level_id) references likelihood_levels(id),
 	foreign key (impact_level_id) references impact_levels(id),
-	foreign key (risk_level_id) references risk_levels(id)
 );
+
+/** lỗi
+ALTER TABLE risks
+ADD foreign key (system_id) references systems(id) on delete cascade */
+
+ALTER TABLE risks
+ADD foreign key (system_id) references systems(id)
+
+create trigger risk_system_delete
+on systems for delete as
+delete from risks where system_id in (select distinct id FROM deleted);
 
 create table risk_asset(
 	id int not null identity(1, 1) primary key,
@@ -112,10 +178,22 @@ create table troubles(
 	short_description nvarchar(200) not null,
 	detail ntext not null,
 	status int not null,
+	system_id int not null,
+	foreign key (system_id) references systems(id),
 	time_happen datetime default current_timestamp,
 	created_time datetime default current_timestamp,
 	modified_time datetime default current_timestamp
 );
+
+
+ALTER TABLE troubles add system_id int not null;
+
+ALTER TABLE troubles
+ADD foreign key (system_id) references systems(id)
+
+create trigger trouble_system_delete
+on systems for delete as
+delete from troubles where system_id in (select distinct id FROM deleted);
 
 create table trouble_risk(
 	id int not null identity(1, 1) primary key,
@@ -166,9 +244,9 @@ update assets set modified_time = CURRENT_TIMESTAMP where id in (select distinct
 /* observation_updateModifiedTime */
 go
 if exists(select name from sysobjects where name='risk_updateModifiedTime' and type='TR')
-drop trigger observation_updateModifiedTime 
+drop trigger risk_updateModifiedTime 
 go
-create trigger observation_updateModifiedTime
+create trigger risk_updateModifiedTime
 on risks for update as
 update risks set modified_time = CURRENT_TIMESTAMP where id in (select distinct id FROM inserted);
 

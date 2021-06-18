@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,17 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.mindrot.jbcrypt.BCrypt;
-
-import dao.SystemDAO;
 import dao.UserDAO;
-import dao.impl.SystemDAOImpl;
 import dao.impl.UserDAOImpl;
 import model.User;
 import utils.MyUtils;
-import model.ITSystem;
 
 
 @WebServlet("/user/info")

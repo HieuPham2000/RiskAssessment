@@ -1,3 +1,23 @@
+function checkTag(select_id, container_id) {
+  var select_element = document.getElementById(select_id);
+  var container_element = document.getElementById(container_id);
+
+  var values = [];
+  var inputs = container_element.getElementsByTagName("input");
+  for(var i = 0; i < inputs.length; ++i) {
+    if(inputs[i].type == "hidden") {
+      values.push(inputs[i].value);
+    }
+  }
+
+  for(var i = 1; i < select_element.options.length; ++i) {
+    if(values.includes(select_element.options[i].value)){
+      select_element.options[i].setAttribute("disabled", "true");
+    }
+  }
+
+}
+
 function addTag(select_id, container_id) {
   var select_element = document.getElementById(select_id);
   var container_element = document.getElementById(container_id);

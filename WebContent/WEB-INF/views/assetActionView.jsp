@@ -102,7 +102,7 @@
           <input type="hidden" name="id" value="${fn:escapeXml(asset.id) }" required>
 					<div class="form-item">
 						<button class="btn-danger" type="submit" name="action" 
-						onclick="return confirm('Bạn chắc chắn muốn XÓA tài sản #1?')"
+						onclick="return confirm('Bạn chắc chắn muốn XÓA tài sản #${asset.id}?')"
 						value="delete">Xóa tài sản</button>
 					</div>
 					

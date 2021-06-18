@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,29 +33,45 @@
   <!-- main content -->
   <div class="wrapper">
     <p class="link_mark">Home > Đánh giá rủi ro</p>
-    <div class="row">
+    
+     <c:choose>
+      <c:when test="${list == null || list.size() == 0}">
+        <div class="row justify-content-center">
+			<div class="col-6 col-m-12 col-sm-12">
+				<p class="notice">Chưa ghi nhận rủi ro</p>
+				<img class="img_description" src="assets/image/no_risk.svg">
+        
+				<a class="link_btn" href="${pageContext.request.contextPath}/risk/add">Thêm rủi ro mới</a>
+			</div>
+		
+		</div>
+      </c:when>
+      <c:otherwise>
+      <div class="row">
       <div class="col-4 col-m-12 col-sm-12">
         <label for="risk_level">Lọc theo mức độ rủi ro</label> <select
           name="risk_level">
-          <option>Cao</option>
-          <option>Trung bình</option>
-          <option>Thấp</option>
-          <option>Không đáng kể</option>
+          <option value="all">Tất cả</option>
+          <c:forEach items="${risk_levels}" var="risk_level">
+            <option value="${fn:escapeXml(risk_level.level)}" style="color: ${risk_level.color};">
+            ${fn:escapeXml(risk_level.level)}
+            </option>
+          </c:forEach>
         </select>
       </div>
       <div class="col-4 col-m-12 col-sm-12">
         <label for="sort">Sắp xếp</label> <select name="sort">
-          <option>Thời gian cập nhật từ mới đến cũ</option>
-          <option>Thời gian cập nhật từ cũ đến mới</option>
-          <option>Theo ID tăng dần</option>
-          <option>Theo mức độ rủi ro tăng dần</option>
-          <option>Theo mức độ tác động tăng dần</option>
-          <option>Theo khả năng xảy ra tăng dần</option>
+          <option value="modified_time desc">Thời gian cập nhật từ mới đến cũ</option>
+          <option value="modified_time asc">Thời gian cập nhật từ cũ đến mới</option>
+          <option value="id asc">Theo ID tăng dần</option>
+          <option value="risk">Theo mức độ rủi ro tăng dần</option>
+          <option value="likelihood">Theo mức độ tác động tăng dần</option>
+          <option value="impact">Theo khả năng xảy ra tăng dần</option>
         </select>
       </div>
       <div class="col-4 col-m-12 col-sm-12">
         <div>
-          <a class="link_btn" href="risk-scale-setting.html">Cài đặt
+          <a class="link_btn" href="${pageContext.request.contextPath}/risk/setting">Cài đặt
             thang điểm đánh giá <i class="fas fa-cog"></i>
           </a>
         </div>
@@ -67,12 +83,12 @@
           <div class="card-header">
             <h3>Danh sách rủi ro</h3>
 
-            <a href="risk-add.html"> <i class="fas fa-plus-circle"></i>
+            <a href="${pageContext.request.contextPath}/risk/add"> <i class="fas fa-plus-circle"></i>
             </a>
           </div>
 
           <div class="card-content">
-            <p>Số lượng: 2</p>
+            <p>Số lượng: ${risks.size()}</p>
             <table>
               <thead>
                 <tr>
@@ -86,29 +102,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="row_link" data-link="risk_action.html"
+              <c:forEach items="${list}" var="element">
+                <tr class="row_link" data-link="risk/action?id=${element.risk.id}"
                   onclick="clickRow(event)">
-                  <td>2</td>
-                  <td>Dữ liệu bị đánh cắp</td>
-                  <td>Khả năng thực hiện SQL injection chưa được
-                    khắc phục akndwnd jakwndk jowdcknk owjdocm owdoaoc
-                    kajdkdn jfofjfjlf afkfj afdfsfj fjifij jpfjepjc
-                    pdoofjfjwojcpo</td>
-                  <td>Hacker</td>
-                  <td>Cao</td>
-                  <td>Cao</td>
-                  <td>Cao</td>
+                  <td>${fn:escapeXml(element.risk.id)}</td>
+                  <td>${fn:escapeXml(element.risk.short_description)}</td>
+                  <td>${fn:escapeXml(element.risk.flaw)}</td>
+                  <td>${fn:escapeXml(element.risk.threat)}</td>
+                  <td style="color:${element.riskLevel.color};">${fn:escapeXml(element.riskLevel.level)}</td>
+                  <td style="color:${element.impactLevel.color};">${fn:escapeXml(element.impactLevel.level)}</td>
+                  <td style="color:${element.likelihoodLevel.color};">${fn:escapeXml(element.likelihoodLevel.level)}</td>
                 </tr>
-                <tr class="row_link" data-link="risk_action.html"
-                  onclick="clickRow(event)">
-                  <td>1</td>
-                  <td>Server bị sập</td>
-                  <td>Bị tấn công DDOS</td>
-                  <td>Hacker</td>
-                  <td>Cao</td>
-                  <td>Cao</td>
-                  <td>Cao</td>
-                </tr>
+              </c:forEach>
+                
               </tbody>
             </table>
           </div>
@@ -119,6 +125,9 @@
       </div>
 
     </div>
+      </c:otherwise>
+      </c:choose>
+    
   </div>
   <!-- end main content -->
   <!-- import script -->

@@ -1,5 +1,10 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,4 +52,13 @@ public class MyUtils {
         cookieUserName.setMaxAge(0);
         response.addCookie(cookieUserName);
     }
+    
+    public static <V> List<V> mapToList(Map<Integer, V> map) {
+		List<V> list = new ArrayList<V>();
+		for(int key: map.keySet()) {
+			list.add(map.get(key));
+		}
+		
+		return list;
+	}
 }

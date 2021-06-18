@@ -77,3 +77,32 @@ form ul {
   color: #ffffff;
   background-color: var(--primary-color);
 }
+
+/* */
+#flask-message-container {
+    z-index: 200;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    
+    font-size: 1.5rem;
+    background: var(--main-bg-color);
+    color: var(--danger-color);
+    box-shadow: 0 0 0 0.2 rgba(0, 0, 0, 0.02);
+    
+    border: 1px solid #bbbbbb;
+    padding: 0rem 2rem;
+    border-radius: 5px;
+    width: fit-content;
+
+    position: fixed;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#flask-message-container.hide {
+  display: none;
+}
