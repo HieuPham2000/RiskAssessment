@@ -178,6 +178,7 @@ create table troubles(
 	short_description nvarchar(200) not null,
 	detail ntext not null,
 	status int not null,
+	solution ntext,
 	system_id int not null,
 	foreign key (system_id) references systems(id),
 	time_happen datetime default current_timestamp,
@@ -185,7 +186,7 @@ create table troubles(
 	modified_time datetime default current_timestamp
 );
 
-
+ALTER TABLE troubles add solution ntext;
 ALTER TABLE troubles add system_id int not null;
 
 ALTER TABLE troubles

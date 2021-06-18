@@ -19,13 +19,14 @@ public class TroubleDAOImpl implements TroubleDAO {
 	public void insert(Trouble trouble, List<Integer> assets, List<Integer> risks) {
 		try {
 			Connection conn = ConnectionUtils.getConnection();
-			String sql = "insert into troubles(short_description, detail, status, system_id, time_happen) values (?, ?, ?, ?, ?)";
+			String sql = "insert into troubles(short_description, detail, status, system_id, time_happen, solution) values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, trouble.getShort_description());
 			preparedStatement.setString(2, trouble.getDetail());
 			preparedStatement.setInt(3, trouble.getStatus());
 			preparedStatement.setInt(4, trouble.getSystem_id());
 			preparedStatement.setTimestamp(5, Timestamp.valueOf(trouble.getTime_happen()));
+			preparedStatement.setString(6, trouble.getSolution());
 			preparedStatement.executeUpdate();
 			
 			
@@ -64,13 +65,14 @@ public class TroubleDAOImpl implements TroubleDAO {
 	public void update(Trouble trouble, List<Integer> assets, List<Integer> risks) {
 		try {
 			Connection conn = ConnectionUtils.getConnection();
-			String sql = "update troubles set short_description = ?, detail = ?, status = ?, time_happen = ? where id = ?";
+			String sql = "update troubles set short_description = ?, detail = ?, status = ?, time_happen = ?, solution = ? where id = ?";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, trouble.getShort_description());
 			preparedStatement.setString(2, trouble.getDetail());
 			preparedStatement.setInt(3, trouble.getStatus());
 			preparedStatement.setTimestamp(4, Timestamp.valueOf(trouble.getTime_happen()));
-			preparedStatement.setInt(5, trouble.getId());
+			preparedStatement.setString(5, trouble.getSolution());
+			preparedStatement.setInt(6, trouble.getId());
 						
 			preparedStatement.executeUpdate();
 			
@@ -138,11 +140,12 @@ public class TroubleDAOImpl implements TroubleDAO {
 				String detail = resultSet.getString("detail");
 				int status = resultSet.getInt("status");
 				int system_id = resultSet.getInt("system_id");
+				String solution = resultSet.getString("solution");
 				String time_happen = resultSet.getString("time_happen");
 				String created_time = resultSet.getString("created_time");
 				String modified_time = resultSet.getString("modified_time");
 				
-				Trouble trouble = new Trouble(id, short_description, detail, status, system_id, time_happen, created_time, modified_time);
+				Trouble trouble = new Trouble(id, short_description, detail, status, solution, system_id, time_happen, created_time, modified_time);
 				
 				return trouble;
 			}
@@ -168,12 +171,12 @@ public class TroubleDAOImpl implements TroubleDAO {
 				String short_description = resultSet.getString("short_description");
 				String detail = resultSet.getString("detail");
 				int status = resultSet.getInt("status");
-				
+				String solution = resultSet.getString("solution");
 				String time_happen = resultSet.getString("time_happen");
 				String created_time = resultSet.getString("created_time");
 				String modified_time = resultSet.getString("modified_time");
 				
-				Trouble trouble = new Trouble(id, short_description, detail, status, system_id, time_happen, created_time, modified_time);
+				Trouble trouble = new Trouble(id, short_description, detail, status, solution,system_id, time_happen, created_time, modified_time);
 				
 				list.add(trouble);
 			}
