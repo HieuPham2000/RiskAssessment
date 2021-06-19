@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dao.RiskDAO;
 import jdbc.ConnectionUtils;
@@ -257,6 +259,76 @@ public class RiskDAOImpl implements RiskDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public int getNumRisksInSystem(int system_id) {
+		try {
+			Connection conn = ConnectionUtils.getConnection();
+			String sql = "select COUNT(*) as num from risks where system_id = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, system_id);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				int res = resultSet.getInt("num");
+				return res;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public int getNumRisksInAssessment(int system_id) {
+		try {
+			Connection conn = ConnectionUtils.getConnection();
+			String sql = "select COUNT(*) as num from assessment where system_id = ?";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, system_id);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				int res = resultSet.getInt("num");
+				return res;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public Map<Integer, Integer> countByRiskLevel(int system_id) {
+		try {
+			Connection conn = ConnectionUtils.getConnection();
+			String sql = "select id, COUNT(*) as num from assessment join risk_levels on risk_level_id = id"
+					+ " where assessment.system_id = ?"
+					+ " group by id";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, system_id);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			Map<Integer, Integer> map = new HashMap<>();
+			while(resultSet.next()) {
+				int id = resultSet.getInt("id");
+				int num = resultSet.getInt("num");
+				map.put(id, num);
+			}
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

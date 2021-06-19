@@ -1,8 +1,8 @@
 :root {
 	--primary-color: #4834d4;
-	--success-color: #6ab04c;
-	--warning-color: #f0932b;
-	--danger-color: #eb4d4b;
+	--success-color: rgb(106, 176, 76);
+	--warning-color: rgb(240, 147, 43);
+	--danger-color: rgb(235, 77, 75);
 	--active-color: #eb4d4b;
 	--input-border-focus: #0094f7;
 	--input-bg: #d9f0ff;
@@ -528,7 +528,7 @@ body {
 }
 
 .counter i {
-	font-size: 50px;
+	font-size: 30px;
 }
 
 .card {

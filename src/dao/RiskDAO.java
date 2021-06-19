@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import model.Risk;
 
@@ -19,4 +20,10 @@ public interface RiskDAO {
 	List<Risk> getAllRisksInSystem(int system_id);
 	
 	List<Risk> getRisksOfTrouble(int trouble_id);
+	
+	int getNumRisksInSystem(int system_id);
+	
+	int getNumRisksInAssessment(int system_id);
+	
+	Map<Integer, Integer> countByRiskLevel(int system_id);
 }

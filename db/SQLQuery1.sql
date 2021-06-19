@@ -22,3 +22,7 @@ order by MONTH(time_happen) asc
 select status, COUNT(*) as num from troubles where system_id = 9
 group by status
 order by status asc
+
+select MONTH(time_happen) as month, COUNT(*) as num from troubles
+where system_id = 9 and YEAR(time_happen) = 2021 and status = 0
+group by MONTH(time_happen) order by MONTH(time_happen) asc

@@ -15,4 +15,8 @@ public interface TroubleDAO {
 	Trouble get(int id);
 	
 	List<Trouble> getAllInSystem(int system_id);
+	
+	List<Integer> countNumGroupbyStatus(int system_id, int year);
+	
+	List<Integer> countNumGroupbyMonth(int system_id, int year, int status);
 }

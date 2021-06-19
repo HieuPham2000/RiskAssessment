@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dao.TroubleDAO;
@@ -180,6 +181,65 @@ public class TroubleDAOImpl implements TroubleDAO {
 				
 				list.add(trouble);
 			}
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Integer> countNumGroupbyStatus(int system_id, int year) {
+		try {
+			Connection conn = ConnectionUtils.getConnection();
+			String sql = "select status, COUNT(*) as num from troubles "
+					+ "where system_id = ? and year(time_happen) = ? "
+					+ "group by status order by status asc";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, system_id);
+			preparedStatement.setInt(2, year);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			List<Integer> list = new ArrayList<Integer>(Collections.nCopies(3, 0));
+			
+			while(resultSet.next()) {
+				int status = resultSet.getInt("status");
+				int num = resultSet.getInt("num");
+				list.set(status, num);
+			}
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Integer> countNumGroupbyMonth(int system_id, int year, int status) {
+		try {
+			Connection conn = ConnectionUtils.getConnection();
+			String sql = "select MONTH(time_happen) as month, COUNT(*) as num from troubles"
+					+ " where system_id = ? and YEAR(time_happen) = ? and status = ?"
+					+ " group by MONTH(time_happen) order by MONTH(time_happen) asc";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, system_id);
+			preparedStatement.setInt(2, year);
+			preparedStatement.setInt(3, status);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			List<Integer> list = new ArrayList<Integer>(Collections.nCopies(12, 0));
+			
+			while(resultSet.next()) {
+				int month = resultSet.getInt("month");
+				int num = resultSet.getInt("num");
+				list.set(month - 1, num);
+			}
+			
+//			System.out.println(list);
 			
 			return list;
 		} catch (Exception e) {

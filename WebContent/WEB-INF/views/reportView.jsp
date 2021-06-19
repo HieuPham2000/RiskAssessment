@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,37 +32,113 @@
 				<a class="link_btn right" href="#">Xuất báo cáo <i class="fas fa-file"></i></a>
 		</div>
 
+        <div class="row">
+      <div class="col-12 col-m-12 col-sm-12">
+        <h2 class="notice">Thống kê rủi ro</h2>
+      </div>
+    </div>
+    
+     <div class="row">
+      <div class="col-4 col-m-6 col-sm-6">
+        <div class="counter bg-primary">
+          <p>
+            <i class="fas fa-tasks"></i>
+          </p>
+          <h3>${num_risk_system}</h3>
+          <p>Tổng số</p>
+        </div>
+      </div>
+
+      <div class="col-4 col-m-6 col-sm-6">
+        <div class="counter bg-success">
+          <p>
+            <i class="fas fa-check-circle"></i>
+          </p>
+          <h3>${num_risk_assessment}</h3>
+          <p>Đã đánh giá</p>
+        </div>
+      </div>
+
+      <div class="col-4 col-m-6 col-sm-6">
+        <div class="counter bg-warning">
+          <p>
+            <i class="fas fa-spinner"></i>
+          </p>
+          <h3>${num_risk_system - num_risk_assessment}</h3>
+          <p>Chưa đánh giá</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-6 col-m-12 col-sm-12">
+      <div class="card">
+        <div class="card-content">
+            <table>
+            <tbody>
+              <thead>
+                <tr>
+                  <th>Mức độ rủi ro</th>
+                  <th>Số lượng</th>
+                </tr>
+              </thead>
+              <c:forEach items="${riskLevels}" var="riskLevel">
+                <tr style="color: ${riskLevel.color};">
+                    <td>${fn:escapeXml(riskLevel.level)}</td>
+                    <td>${map.get(riskLevel.id) != null ? map.get(riskLevel.id) : '0' }</td>
+                </tr>
+              </c:forEach>
+            </tbody>
+            </table>
+      </div>
+    </div>
+    </div>
+    </div>
+  
+  
 		<div class="row">
 			<div class="col-12 col-m-12 col-sm-12">
-        <h2 class="notice">Thống kê sự cố</h2>
+        <h2 class="notice">Thống kê sự cố - ${year }</h2>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-3 col-m-6 col-sm-6">
 				<div class="counter bg-primary">
-					<h3>100</h3>
+                    <p>
+                      <i class="fas fa-tasks"></i>
+                    </p>
+					<h3>${troubleStatus.get(0) + troubleStatus.get(1) + troubleStatus.get(2)}</h3>
 					<p>Tổng số</p>
 				</div>
 			</div>
 
 			<div class="col-3 col-m-6 col-sm-6">
 				<div class="counter bg-danger">
-					<h3>0</h3>
+                    <p>
+                      <i class="fas fa-bug"></i>
+                    </p>
+					<h3>${troubleStatus.get(0)}</h3>
 					<p>Chưa xử lý</p>
 				</div>
 			</div>
 
 			<div class="col-3 col-m-6 col-sm-6">
 				<div class="counter bg-warning">
-					<h3>90</h3>
+                    <p>
+                      <i class="fas fa-spinner"></i>
+                    </p>
+					<h3>${troubleStatus.get(1)}</h3>
 					<p>Đang xử lý</p>
 				</div>
 			</div>
 
 			<div class="col-3 col-m-6 col-sm-6">
 				<div class="counter bg-success">
-					<h3>90</h3>
+                    <p>
+                      <i class="fas fa-check-circle"></i>
+                    </p>
+                    <h3>${troubleStatus.get(2)}</h3>
 					<p>Đã xử lý</p>
 				</div>
 			</div>
@@ -88,69 +164,64 @@
 		</div>
 
 
-		<div class="row">
-			<div class="col-12 col-m-12 col-sm-12">
-        <h2 class="notice">Thống kê rủi ro</h2>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-3 col-m-6 col-sm-6">
-				<div class="counter bg-primary">
-					<h3>50</h3>
-					<p>Tổng số</p>
-				</div>
-			</div>
-
-			<div class="col-3 col-m-6 col-sm-6">
-				<div class="counter bg-danger">
-					<h3>10</h3>
-					<p>Mức độ cao</p>
-				</div>
-			</div>
-
-			<div class="col-3 col-m-6 col-sm-6">
-				<div class="counter bg-warning">
-					<h3>20</h3>
-					<p>Mức độ trung bình</p>
-				</div>
-			</div>
-
-			<div class="col-3 col-m-6 col-sm-6">
-				<div class="counter bg-success">
-					<h3>20</h3>
-					<p>Mức độ thấp</p>
-				</div>
-			</div>
-			
-		</div>
-
-
-		<div class="row">
-			<div class="col-12 col-m-12 col-sm-12">
-				<div style="overflow-x: auto;">
-					<div class="card">
-						<!-- <div class="card-header">
-							<h3>
-								Chartjs
-							</h3>
-						</div> -->
-						<div class="card-content">
-							<canvas id="risk_chart"></canvas>
-						</div>
-					</div>
-				</div>
-			
-			</div>
-		</div>
-	
+		
 
 	</div>
 	<!-- end main content -->
 	<!-- import script -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<script src="assets/js/index.js"></script>
-	<script src="assets/js/my_chart.js"></script>
+    <script type="text/javascript">
+   /*  console.log(${troubleMonth.get(0)});
+    var data = [<c:forEach items="${troubleMonth.get(0)}" var="value">${value}, </c:forEach>];
+    console.log(data); */
+    var ctx = document.getElementById('trouble_chart')
+    ctx.height = 500
+    ctx.width = 500
+    var data = {
+    	labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+    	datasets: [{
+    		fill: false,
+    		label: 'Chưa xử lý',
+    		borderColor: 'rgb(235, 77, 75, 0.5)',
+    		data: ${troubleMonth.get(0)},
+    		borderWidth: 2,
+    		lineTension: 0,
+    	}, {
+    		fill: false,
+    		label: 'Đang xử lý',
+    		borderColor: 'rgb(240, 147, 43, 0.5)',
+    		data: ${troubleMonth.get(1)},
+    		borderWidth: 2,
+    		lineTension: 0,
+    	}, {
+    		fill: false,
+    		label: 'Đã xử lý',
+    		borderColor: 'rgb(106, 176, 76, 0.5)',
+    		data: ${troubleMonth.get(2)},
+    		borderWidth: 2,
+    		lineTension: 0,
+    	}]
+    }
+
+    var lineChart = new Chart(ctx, {
+    	type: 'line',
+    	data: data,
+    	options: {
+    		maintainAspectRatio: false,
+    		bezierCurve: false,
+    		scales: {
+        		yAxes: [{
+        	        ticks: {
+        	        	precision: 0
+        	        }
+        	      }],
+ 
+        	},
+    	}
+    })
+
+    </script>
 	<!-- end import script -->
 </body>
 </html>
