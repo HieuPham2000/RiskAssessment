@@ -36,6 +36,7 @@
       <div class="col-8 col-m-12 col-sm-12">
 				<h2 class="form-title">Thêm tài sản mới</h2>
         <form method="POST" action="${pageContext.request.contextPath}/asset/add">
+          <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
           <input type="hidden" name="system_id" value="${system_id}" required>
           <div class="form-item">
             <label for="name">Tên tải sản <span>(*)</span></label>
@@ -83,7 +84,7 @@
             <textarea name="description" rows="5" placeholder="Mô tả về tài sản" required></textarea>
           </div>
   
-          <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+          
           <div class="form-item justify-content-center">
             <button type="submit" name="add"
 						onclick="return confirm('Thêm tài sản mới?')"

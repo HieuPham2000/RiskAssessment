@@ -38,64 +38,84 @@ public class UserSettingController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		
-		String successMessage = "";
-		
-		User user = MyUtils.getUserInSession(request);
-		
-		UserDAO userDAO = new UserDAOImpl();
-		
-		
-		
-		if(action.equalsIgnoreCase("update-password")) {
-			
-			String old_pwd = request.getParameter("old_password");
-			String new_pwd = request.getParameter("new_password");
-			
-			if(checkPass(old_pwd, user.getPassword()) == false) {
-				String errorMessage1 = "Mật khẩu không đúng!";
-				request.setAttribute("errorMessage1", errorMessage1);
-			} else {
-				user.setPassword(hashPassword(new_pwd));
-				userDAO.updatePassword(user);
 				
-				successMessage = "Cập nhật thành công!";
-				request.setAttribute("successMessage", successMessage);
-			}
-			
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userSettingView.jsp");
-			dispatcher.forward(request, response);	
+		if(action.equalsIgnoreCase("update-password")) {
+			updatePassword(request, response);	
 		} else if(action.equalsIgnoreCase("delete-account")) {
-			
-			String pwd = request.getParameter("password_confirm");
-			String text = request.getParameter("text_confirm");
-			boolean hasError = false;
-			
-			if( text.equals("I want to delete my account") == false) {
-				String errorMessage2 = "Câu xác nhận không đúng!";
-				hasError = true;
-				request.setAttribute("errorMessage2", errorMessage2);
-			}
-			// cần xem lại logic if else
-			if(checkPass(pwd, user.getPassword()) == false) {
-				String errorMessage3 = "Mật khẩu không đúng!";
-				hasError = true;
-				request.setAttribute("errorMessage3", errorMessage3);
-			} 
-			
-			if(hasError) {
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userSettingView.jsp");
-				dispatcher.forward(request, response);
-			} else {
-				userDAO.delete(user.getId());
-				MyUtils.deleteUserInSession(request);
-				request.getSession().invalidate();
-				response.sendRedirect(request.getContextPath() + "/login");
-			}
+			deleteAccount(request, response);	
 		}
 		
 		
 	}
+	
+	private void updatePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		User user = MyUtils.getUserInSession(request);
+		
+		String old_pwd = request.getParameter("old_password");
+		String new_pwd = request.getParameter("new_password");
+		
+		if(checkPass(old_pwd, user.getPassword()) == false) {
+			String errorMessage1 = "Mật khẩu không đúng!";
+//			request.setAttribute("errorMessage1", errorMessage1);
+			request.getSession().setAttribute("errorMessage1", errorMessage1);
+		} else {
+			user.setPassword(hashPassword(new_pwd));
+			
+			UserDAO userDAO = new UserDAOImpl();
+			userDAO.updatePassword(user);
+			
+			String successMessage = "Cập nhật thành công!";
+//			request.setAttribute("successMessage", successMessage);
+			request.getSession().setAttribute("successMessage", successMessage);
+		}
+//		ở đây dùng forward vẫn ok, vì user luôn lấy từ session
+//		request.setAttribute("user", user);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userSettingView.jsp");
+//		dispatcher.forward(request, response);	
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
+	}
+	
+	private void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		User user = MyUtils.getUserInSession(request);
+		
+		String pwd = request.getParameter("password_confirm");
+		String text = request.getParameter("text_confirm");
+		boolean hasError = false;
+		String errorMessage2 = "";
+		
+		if( text.equals("I want to delete my account") == false) {
+			errorMessage2 += "Câu xác nhận không đúng!";
+			hasError = true;
+			
+		}
+
+		if(checkPass(pwd, user.getPassword()) == false) {
+			errorMessage2 += " Mật khẩu không đúng!";
+			hasError = true;
+		} 
+		
+		if(hasError) {
+//			ở đây dùng forward vẫn ok, vì user luôn lấy từ session
+//			request.setAttribute("user", user);
+//			request.setAttribute("errorMessage2", errorMessage2);
+//			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userSettingView.jsp");
+//			dispatcher.forward(request, response);
+			request.getSession().setAttribute("errorMessage2", errorMessage2);
+			String url = request.getHeader("referer");
+			response.sendRedirect(url);
+		} else {
+			UserDAO userDAO = new UserDAOImpl();
+			userDAO.delete(user.getId());
+			MyUtils.deleteUserInSession(request);
+			request.getSession().invalidate();
+			response.sendRedirect(request.getContextPath() + "/login");
+		}
+	}
+
 	
 	private String hashPassword(String plainTextPassword){
 		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());

@@ -83,13 +83,21 @@ public class RiskSettingController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String setting = request.getParameter("setting");
+		String successMessage = "";
 		if(setting.equalsIgnoreCase("impact_level")) {
 			setImpactLevel(request, response);
+			successMessage = "Cập nhật thang đo Mức Độ Tác Động thành công!";
 		} else if(setting.equalsIgnoreCase("likelihood_level")) {
 			setLikelihoodLevel(request, response);
+			successMessage = "Cập nhật thang đo Khả Năng Xảy Ra thành công!";
 		} else if(setting.equalsIgnoreCase("risk_level")) {
 			setRiskLevel(request, response);
+			successMessage = "Cập nhật thang đo Mức Độ Rủi Ro thành công!";
 		}
+		
+		request.getSession().setAttribute("successMessage", successMessage);
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
 	}
 	
 	private void setImpactLevel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

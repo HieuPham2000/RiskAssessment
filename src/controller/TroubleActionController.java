@@ -29,7 +29,7 @@ import utils.MyUtils;
 /**
  * Servlet implementation class TroubleActionController
  */
-@WebServlet("/TroubleActionController")
+@WebServlet("/trouble/action")
 public class TroubleActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -66,8 +66,8 @@ public class TroubleActionController extends HttpServlet {
 			request.setAttribute("trouble", trouble);
 			request.setAttribute("risks", risks);
 			request.setAttribute("assets", assets);
-			request.setAttribute("allRisks", risks);
-			request.setAttribute("allAssets", assets);
+			request.setAttribute("allRisks", allRisks);
+			request.setAttribute("allAssets", allAssets);
 			
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/troubleActionView.jsp");
 			dispatcher.forward(request, response);
@@ -101,8 +101,11 @@ public class TroubleActionController extends HttpServlet {
 		
 		String date = request.getParameter("date");
 		String time = request.getParameter("time");
+		if(time.length() <= 5 ) {
+			time = time + ":00";
+		}
 		String time_happen = date + " " + time;
-		
+//		System.out.println(time_happen);
 		String tmp[] = request.getParameterValues("tag_asset");
 		List<Integer> assets = new ArrayList<>();
 		if(tmp != null) {
@@ -121,12 +124,15 @@ public class TroubleActionController extends HttpServlet {
 		
 		TroubleDAO troubleDAO = new TroubleDAOImpl();
 		Trouble trouble = new Trouble(id, short_description, detail, status, solution, time_happen);
-		troubleDAO.insert(trouble, assets, risks);
+		troubleDAO.update(trouble, assets, risks);
 		
 		String successMessage = "Cập nhật thành công!";
-		request.setAttribute("successMessage", successMessage);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/troubleAddView.jsp");
-		dispatcher.forward(request, response);
+//		request.setAttribute("successMessage", successMessage);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/troubleAddView.jsp");
+//		dispatcher.forward(request, response);
+		request.getSession().setAttribute("successMessage", successMessage);
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
 	}
 	
 	private void deleteTrouble(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

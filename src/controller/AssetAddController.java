@@ -32,7 +32,6 @@ public class AssetAddController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
 			User user = MyUtils.getUserInSession(request);
 			SystemDAO systemDAO = new SystemDAOImpl();
 			ITSystem system = systemDAO.getByUserId(user.getId());
@@ -40,9 +39,6 @@ public class AssetAddController extends HttpServlet {
 			request.setAttribute("system_id", system.getId());
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/assetAddView.jsp");
 			dispatcher.forward(request, response);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 
 	}
 

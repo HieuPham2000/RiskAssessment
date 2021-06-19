@@ -15,6 +15,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import dao.UserDAO;
 import dao.impl.UserDAOImpl;
 import model.User;
+import utils.MyUtils;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -25,8 +26,7 @@ public class LoginController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
+		User user = MyUtils.getUserInSession(request);
 		if(user == null) {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 			dispatcher.forward(request, response);

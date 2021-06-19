@@ -46,8 +46,10 @@ public class AssetController extends HttpServlet {
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/assetView.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			response.sendRedirect(request.getContextPath() + "/login");
+			e.printStackTrace();
 		}
+			
+		
 		
 	}
 

@@ -85,7 +85,12 @@ function openCloseDropdown(event) {
 
 function clickRow(event) {
 	// Khi click nó bắt sự kiện ở td
-	var link = event.target.parentElement.dataset.link;
+	var el = event.target;
+	while(el.tagName.toLowerCase() != "tr") {
+		el = el.parentElement;
+	}
+	
+	var link = el.dataset.link;
 	window.location.href = link;
 	// console.log(event.target.parentElement);
 	// console.log(link);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@
           </div>
 
           <div class="card-content">
-            <p>Số lượng: ${trouble.size()}</p>
+            <p>Số lượng: ${troubles.size()}</p>
             <table>
               <thead>
                 <tr>
@@ -68,7 +69,7 @@
                 </tr>
               </thead>
               <tbody>
-              <c:forEach items="troubles" var="trouble">
+              <c:forEach items="${troubles}" var="trouble">
                 <tr class="row_link" data-link="trouble/action?id=${trouble.id}" onclick="clickRow(event)">
                   <td>${trouble.id}</td>
                   <td>${fn:escapeXml(trouble.short_description)}</td>
@@ -76,19 +77,22 @@
                   <td>
                   <c:choose>
                     <c:when test="${trouble.status == 0}">
-                      <span class="dot"><i class="bg-danger"></i>Chưa xử lý</span>
+                      <span class="dot" style="color: var(--danger-color);"><i class="bg-danger"></i>Chưa xử lý</span>
                     </c:when>
                     <c:when test="${trouble.status == 1}">
-                      <span class="dot"><i class="bg-warning"></i>Đang xử lý</span>
+                      <span class="dot" style="color: var(--warning-color);"><i class="bg-warning"></i>Đang xử lý</span>
                     </c:when>
                     <c:when test="${trouble.status == 2}">
-                      <span class="dot"><i class="bg-success"></i>Đã xử lý</span>
+                      <span class="dot" style="color: var(--success-color);"><i class="bg-success"></i>Đã xử lý</span>
                     </c:when>
                   </c:choose>
                     
                   </td>
-                  <td>${fn:escapeXml(trouble.time_happen)}</td>
-                  <td>${fn:escapeXml(trouble.modified_time)}</td>
+                  
+                  <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${trouble.time_happen}" var="parsed_time_happen" />
+                  <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${trouble.modified_time}" var="parsed_modified_time" />
+                  <td><fmt:formatDate value="${parsed_time_happen}" pattern="HH:mm dd-MM-yyyy" /></td>
+                  <td><fmt:formatDate value="${parsed_modified_time}" pattern="HH:mm dd-MM-yyyy" /></td>
                 </tr>
               </c:forEach>
                 

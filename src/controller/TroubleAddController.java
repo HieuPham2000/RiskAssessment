@@ -82,8 +82,8 @@ public class TroubleAddController extends HttpServlet {
 		
 		String date = request.getParameter("date");
 		String time = request.getParameter("time");
-		String time_happen = date + " " + time;
-		
+		String time_happen = date + " " + time + ":00";
+//		System.out.println(time_happen);
 		String tmp[] = request.getParameterValues("tag_asset");
 		List<Integer> assets = new ArrayList<>();
 		if(tmp != null) {
@@ -105,9 +105,12 @@ public class TroubleAddController extends HttpServlet {
 		troubleDAO.insert(trouble, assets, risks);
 		
 		String successMessage = "Thêm mới thành công!";
-		request.setAttribute("successMessage", successMessage);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/troubleAddView.jsp");
-		dispatcher.forward(request, response);
+//		request.setAttribute("successMessage", successMessage);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/troubleAddView.jsp");
+//		dispatcher.forward(request, response);
+		request.getSession().setAttribute("successMessage", successMessage);
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
 	}
 
 }

@@ -42,7 +42,10 @@
         <h2 class="form-title">Ghi nhận sự cố mới</h2>
         <form method="POST"
           action="${pageContext.request.contextPath}/trouble/add">
+          
           <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+          <c:remove var="successMessage" scope="session" />
+          
           <input type="hidden" name="system_id" value="${system_id }">
           <div class="form-item">
             <label for="name">Mô tả ngắn <span>(*)</span></label>
@@ -84,12 +87,12 @@
           <div class="form-item">
             <!-- Định dạng value: yyyy/mm/dd -->
             <label for="date">Ngày ghi nhận</label> <input name="date"
-              type="date" id="date">
+              type="date" id="date" required>
           </div>
           <div class="form-item">
             <!-- Định dạng value: hh/MM -->
             <label for="date">Thời điểm ghi nhận</label> <input
-              name="time" type="time" id="time">
+              name="time" type="time" id="time" required>
           </div>
           
            <div class="form-item">

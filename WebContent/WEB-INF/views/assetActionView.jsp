@@ -2,7 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +36,19 @@
       <div class="col-8 col-m-12 col-sm-12">
 
 				<h2 class="form-title">Cập nhật thông tin</h2>
+        <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+        <c:remove var="successMessage" scope="session" />
         <form method="POST" action="${pageContext.request.contextPath}/asset/action">
+          
+          
           <input type="hidden" name="id" value="${fn:escapeXml(asset.id) }" required>
+          
+          <div class="form-item">
+            <label for="name">Cập nhật cuối</label>
+            <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${asset.modified_time}" var="parsed_modified_time" />
+            <input type="text" value='<fmt:formatDate value="${parsed_modified_time}" pattern="HH:mm dd-MM-yyyy" />' disabled readonly>
+          </div>
+          
           <div class="form-item">
             <label for="name">Tên tài sản <span>(*)</span></label>
             <input type="text" name="name" placeholder="Nhập tên tài sản"  value="${fn:escapeXml(asset.name) }" required>
@@ -83,8 +94,6 @@
             <label for="description">Mô tả <span>(*)</span></label>
             <textarea name="description" rows="5" placeholder="Nhập mô tả tài sản" required>${fn:escapeXml(asset.description) }</textarea>
           </div>
-          
-          <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
           
           <div class="form-item justify-content-center">
             <button type="submit" name="action" 

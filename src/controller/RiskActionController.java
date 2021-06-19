@@ -119,9 +119,13 @@ public class RiskActionController extends HttpServlet {
 		riskDAO.updateInfo(risk, assets);
 		
 		String successMessage1 = "Cập nhật thông tin thành công!";
-		request.setAttribute("successMessage1", successMessage1);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/riskActionView.jsp");
-		dispatcher.forward(request, response);
+//		request.setAttribute("successMessage1", successMessage1);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/riskActionView.jsp");
+//		dispatcher.forward(request, response);
+		request.getSession().setAttribute("successMessage1", successMessage1);
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
+//		response.sendRedirect(request.getContextPath() + "/risk/action?id=" + id);
 	}
 
 	private void updateRiskAssessment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -143,9 +147,12 @@ public class RiskActionController extends HttpServlet {
 		riskDAO.updateAssessment(id, likelihood, impact);
 		
 		String successMessage2 = "Cập nhật đánh giá thành công!";
-		request.setAttribute("successMessage2", successMessage2);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/riskActionView.jsp");
-		dispatcher.forward(request, response);	
+//		request.setAttribute("successMessage2", successMessage2);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/riskActionView.jsp");
+//		dispatcher.forward(request, response);	
+		request.getSession().setAttribute("successMessage2", successMessage2);
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
 	}
 	
 	private void deleteRisk(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

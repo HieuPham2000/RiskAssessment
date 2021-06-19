@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,10 +34,16 @@
       <div class="col-8 col-m-12 col-sm-12">
 
 				<h2 class="form-title">Cập nhật thông tin</h2>
+        <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+<%--         <c:remove var="successMessage" scope="session" /> --%>
         <form method="POST" action="${pageContext.request.contextPath}/system/action" enctype="multipart/form-data">
         
           <input type="hidden" name="id" value="${fn:escapeXml(system.id) }" required>
-          
+          <div class="form-item">
+            <label for="name">Cập nhật cuối</label>
+            <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${system.modified_time}" var="parsed_modified_time" />
+            <input type="text" value='<fmt:formatDate value="${parsed_modified_time}" pattern="HH:mm dd-MM-yyyy" />' disabled readonly>
+          </div>
           <div class="form-item">
             <label for="name">Tên hệ thống <span>(*)</span></label>
             <input type="text" name="name" placeholder="Nhập tên hệ thống" value="${fn:escapeXml(system.name) }" required>
@@ -89,7 +96,7 @@
             <textarea name="description" rows="5" placeholder="Nhập mô tả hệ thống" required>${fn:escapeXml(system.description) }</textarea>
           </div>
  
-          <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+          
           <div class="form-item justify-content-center">
             <button type="submit" name="action" 
 						onclick="return confirm('Xác nhận LƯU thay đổi?')"
@@ -101,7 +108,7 @@
         </form>
 
     		<h2 class="form-title">Chuyển quyền sở hữu hệ thống</h2>
-    		<form action="POST" action="${pageContext.request.contextPath}/system/action">
+    		<form method="POST" action="${pageContext.request.contextPath}/system/action">
     			<p>Mọi thông tin về hệ thống sẽ chuyển cho chủ sở hữu mới. Đồng thời bạn sẽ không thể truy cập đến các thông tin của hệ thống.</p>
     		<input type="hidden" name="id" value="${fn:escapeXml(system.id) }" required>	
           <div class="form-item">
@@ -117,6 +124,7 @@
     				<input type="password" name="password-confirm" placeholder="Nhập mật khẩu để xác nhận thực hiện">
     			</div>
                 <p style="color: var(--danger-color);"><c:out value="${ errorMessage2}"></c:out></p>
+                <c:remove var="errorMessage2" scope="session" />
     			<div class="form-item">
     				<button class="btn-danger" type="submit" name="action" 
     				value="change-owner" 
@@ -127,7 +135,7 @@
     
     
     		<h2 class="form-title">Xóa hệ thống</h2>
-    		<form action="POST" action="${pageContext.request.contextPath}/system/action">
+    		<form method="POST" action="${pageContext.request.contextPath}/system/action">
         <input type="hidden" name="id" value="${fn:escapeXml(system.id) }" required>
     			<p>Hệ thống bị xóa sẽ không thể hoàn tác. Mọi thông tin gắn với hệ thống như tài sản, đánh giá rủi ro, lịch sử sự cố sẽ bị xóa. <br>Hãy cân nhắc chắc chắn.</p>
     			<p>Nhập <span style="color: var(--danger-color);">"I want to delete this system"</span> và mật khẩu để xác nhận thực hiện.</p>
@@ -143,6 +151,7 @@
     				<input type="password" name="password_confirm" placeholder="Nhập mật khẩu để xác nhận thực hiện" required>
     			</div>
                 <p style="color: var(--danger-color);"><c:out value="${ errorMessage3}"></c:out></p>
+                <c:remove var="errorMessage3" scope="session" />
     			<div class="form-item">
     				<button class="btn-danger" type="submit" name="action" 
     				onclick="return confirm('Bạn chắc chắn muốn XÓA HỆ THỐNG và các thông tin liên quan?')"

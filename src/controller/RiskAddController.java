@@ -120,9 +120,16 @@ public class RiskAddController extends HttpServlet {
 		riskDAO.insert(risk, assets);
 		
 		String successMessage = "Thêm mới thành công!";
-		request.setAttribute("successMessage", successMessage);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/riskAddView.jsp");
-		dispatcher.forward(request, response);
+//		request.setAttribute("successMessage", successMessage);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/riskAddView.jsp");
+//		dispatcher.forward(request, response);
+		request.getSession().setAttribute("successMessage", successMessage);
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
+//		or
+//		doGet(request, response);
+//		or
+//		response.sendRedirect(request.getContextPath() + "/risk/add");
 	}
 
 }

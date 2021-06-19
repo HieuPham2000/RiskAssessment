@@ -41,7 +41,6 @@ public class SystemActionController extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
 			User user = MyUtils.getUserInSession(request);
 
 			SystemDAO systemDAO = new SystemDAOImpl();
@@ -55,9 +54,6 @@ public class SystemActionController extends HttpServlet {
 			
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemActionView.jsp");
 			dispatcher.forward(request, response);
-		} catch (Exception e) {
-			response.sendRedirect(request.getContextPath() + "/login");
-		}
 	}
 
 
@@ -116,8 +112,9 @@ public class SystemActionController extends HttpServlet {
 		request.setAttribute("images", imageLinks);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemActionView.jsp");
 		dispatcher.forward(request, response);
-//		response.sendRedirect(request.getContextPath() + "/system/action");
-		
+//		request.getSession().setAttribute("successMessage", successMessage);
+//		String url = request.getHeader("referer");
+//		response.sendRedirect(url);
 	}
 	
 	private boolean checkPass(String plainPassword, String hashedPassword) {
@@ -155,9 +152,12 @@ public class SystemActionController extends HttpServlet {
 		}
 		
 		if(hasError) {
-			request.setAttribute("errorMessage2", errorMesssage2);
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemActionView.jsp");
-			dispatcher.forward(request, response);
+//			request.setAttribute("errorMessage2", errorMesssage2);
+//			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemActionView.jsp");
+//			dispatcher.forward(request, response);
+			request.getSession().setAttribute("errorMessage2", errorMesssage2);
+			String url = request.getHeader("referer");
+			response.sendRedirect(url);
 		} else {
 			SystemDAO systemDAO = new SystemDAOImpl();
 			systemDAO.changeOwner(id, new_owner);
@@ -176,17 +176,22 @@ public class SystemActionController extends HttpServlet {
 		boolean hasError = false;
 		
 		if( text.equals("I want to delete this system") == false) {
-			errorMessage3 = "Câu xác nhận không đúng!";
+			errorMessage3 += "Câu xác nhận không đúng!";
 			hasError = true;
-		} else if(checkPass(pwd, user.getPassword()) == false) {
-			errorMessage3 = "Mật khẩu không đúng!";
+		}
+		
+		if(checkPass(pwd, user.getPassword()) == false) {
+			errorMessage3 += " Mật khẩu không đúng!";
 			hasError = true;
 		} 
 		
 		if(hasError) {
-			request.setAttribute("errorMessage3", errorMessage3);
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemActionView.jsp");
-			dispatcher.forward(request, response);
+//			request.setAttribute("errorMessage3", errorMessage3);
+//			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemActionView.jsp");
+//			dispatcher.forward(request, response);
+			request.getSession().setAttribute("errorMessage3", errorMessage3);
+			String url = request.getHeader("referer");
+			response.sendRedirect(url);
 		} else {
 			SystemDAO systemDAO = new SystemDAOImpl();
 			systemDAO.delete(id);

@@ -2,6 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,8 +77,10 @@
                     <td>${fn:escapeXml(asset.id) }</td>
                     <td>${fn:escapeXml(asset.name) }</td>
                     <td>${fn:escapeXml(asset.description) }</td>
-                    <td>${fn:escapeXml(asset.created_time) }</td>
-                    <td>${fn:escapeXml(asset.modified_time) }</td>
+                    <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${asset.created_time}" var="parsed_created_time" />
+                    <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${asset.modified_time}" var="parsed_modified_time" />
+                    <td><fmt:formatDate value="${parsed_created_time}" pattern="HH:mm dd-MM-yyyy" /></td>
+                    <td><fmt:formatDate value="${parsed_modified_time}" pattern="HH:mm dd-MM-yyyy" /></td>
                   </tr>
                 </c:forEach>
                 

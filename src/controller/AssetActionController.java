@@ -72,11 +72,15 @@ public class AssetActionController extends HttpServlet {
 		assetDAO.update(asset);
 		
 		String successMessage = "Cập nhật thành công!";
-		request.setAttribute("successMessage", successMessage);
-		request.setAttribute("asset", asset);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/assetActionView.jsp");
-		dispatcher.forward(request, response);
-		
+//		request.setAttribute("successMessage", successMessage);
+//		request.setAttribute("asset", asset);
+//		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/assetActionView.jsp");
+//		dispatcher.forward(request, response);
+
+		request.getSession().setAttribute("successMessage", successMessage);
+		String url = request.getHeader("referer");
+		response.sendRedirect(url);
+//		response.sendRedirect(request.getContextPath() + "/asset/action?id=" + id);
 	}
 	
 	private void deleteAsset(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

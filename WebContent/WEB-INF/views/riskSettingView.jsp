@@ -49,6 +49,8 @@
     
     <div class="row justify-content-center">
       <div class="col-8 col-m-12 col-sm-12">
+        <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+        <c:remove var="successMessage" scope="session" />
         <h4>Thang đo mức độ tác động</h4>
         <form onkeydown="return event.key != 'Enter';" method="POST"
           action="${pageContext.request.contextPath}/risk/setting">

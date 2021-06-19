@@ -2,7 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -46,13 +46,17 @@
       <div class="col-8 col-m-12 col-sm-12">
 
         <h2 class="form-title">Chi tiết thông tin</h2>
+        <p style="color: var(--success-color);"><c:out value="${successMessage1}"></c:out></p>
+        <c:remove var="successMessage1" scope="session" />
+        <p style="color: var(--success-color);"><c:out value="${successMessage2}"></c:out></p>
+        <c:remove var="successMessage2" scope="session" />
+        
         <form method="POST" action="${pageContext.request.contextPath}/risk/action">
 
-          <input type="hidden" name="id" value="${risk.id}" readonly>
           <div class="form-item">
-            <label>Thời gian cập nhật lần cuối</label> <input
-              type="text" value="${risk.modified_time}" readonly
-              disabled>
+            <label for="name">Cập nhật cuối</label>
+            <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${risk.modified_time}" var="parsed_modified_time" />
+            <input type="text" value='<fmt:formatDate value="${parsed_modified_time}" pattern="HH:mm dd-MM-yyyy" />' disabled readonly>
           </div>
 
           <div class="form-item">
@@ -103,17 +107,17 @@
             <label id="type-label">Loại nguồn đe dọa <span>(*)</span></label>
             <div class="input-container">
               <label for="threat-type"> <input type="radio"
-                name="threat-type" value="human"
+                name="threat-type" value="0"
                 ${risk.threat_type == 0 ? "checked" : "" }>
                 Con người <span>(vô tình/cố ý truy cập, tấn công...)</span>
               </label> 
               <label for="status"> <input type="radio"
-                name="threat-type" value="natural"
+                name="threat-type" value="1"
                 ${risk.threat_type == 1 ? "checked" : "" }>
                 Thiên nhiên <span>(lũ lụt, động đất...)</span>
               </label> 
               <label for="status"> <input type="radio"
-                name="threat-type" value="environmental"
+                name="threat-type" value="2"
                 ${risk.threat_type == 2 ? "checked" : "" }>
                 Môi trường <span>(mất điện kéo dài, rò rỉ chất lỏng...)</span>
               </label>
@@ -125,7 +129,7 @@
             <textarea name="solution" rows="5"
               placeholder="Biện pháp kiếm soát hiện tại/dự định/đề xuất">${fn:escapeXml(risk.solution)}</textarea>
           </div>
-          <p style="color: var(--success-color);"><c:out value="${successMessage1}"></c:out></p>
+          
           <div class="form-item justify-content-center">
             <button type="submit" name="action"
               onclick="return confirm('Xác nhận LƯU thay đổi?')"
@@ -216,7 +220,7 @@
                 id="risk_score" readonly>
             </div>
           </div>
-          <p style="color: var(--success-color);"><c:out value="${successMessage2}"></c:out></p>
+         
           <div class="form-item justify-content-center">
             <button type="submit" name="action"
               onclick="return confirm('Xác nhận LƯU thay đổi?')"

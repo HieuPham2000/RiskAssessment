@@ -57,7 +57,9 @@ public class UserInfoController extends HttpServlet {
 		request.setAttribute("user", user);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
 		dispatcher.forward(request, response);
-		
+//		request.getSession().setAttribute("successMessage", successMessage);
+//		String url = request.getHeader("referer");
+//		response.sendRedirect(url);
 	}
 
 }

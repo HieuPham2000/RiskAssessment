@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,9 +55,13 @@
             <h3>Tên hệ thống</h3>
           </div>
           <div class="card-content">
-            <p>${fn:escapeXml(system.name) }</p>
-            <p>Thời điểm tạo: <span>${fn:escapeXml(system.created_time) }</span></p>
-            <p>Thời điểm cập nhật cuối: <span>${fn:escapeXml(system.modified_time) }</span></p>
+            <p><strong>${fn:escapeXml(system.name) }</strong></p>
+            <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${system.created_time}" var="parsed_created_time" />
+            <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${system.modified_time}" var="parsed_modified_time" />
+            <p>Thời điểm tạo: <fmt:formatDate value="${parsed_created_time}" pattern="HH:mm dd-MM-yyyy" /></p>
+            <p>Thời điểm cập nhật cuối: <fmt:formatDate value="${parsed_modified_time}" pattern="HH:mm dd-MM-yyyy" /></p>
+            <%-- <p>Thời điểm tạo: <span>${fn:escapeXml(system.created_time) }</span></p>
+            <p>Thời điểm cập nhật cuối: <span>${fn:escapeXml(system.modified_time) }</span></p> --%>
           </div>
         </div>
         <div class="card">

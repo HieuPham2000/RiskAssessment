@@ -33,6 +33,8 @@
 		<div class="row justify-content-center">
       <div class="col-8 col-m-12 col-sm-12">
         <h2 class="form-title">Thêm rủi ro mới</h2>
+        <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+        <c:remove var="successMessage" scope="session" />
         <form onkeydown="return event.key != 'Enter';" method="POST" action="${pageContext.request.contextPath}/risk/add">
 		
         <input type="hidden" name="system_id" value="${system_id }">
@@ -171,7 +173,7 @@
 		</div>
 
 					
-          <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+          
           <div class="form-item justify-content-center">
             <button type="submit" name="add"
 						onclick="return confirm('Thêm rủi ro mới?')"

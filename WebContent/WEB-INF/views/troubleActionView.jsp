@@ -2,6 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -38,15 +39,23 @@
 
   <!-- main content -->
   <div class="wrapper">
-    <p class="link_mark">Home > Lịch sử sự cố > Sự cố #${trouble.id
-      }</p>
+    <p class="link_mark">Home > Lịch sử sự cố > Sự cố #${trouble.id}</p>
     <div class="row justify-content-center">
       <div class="col-8 col-m-12 col-sm-12">
 
         <h2 class="form-title">Chi tiết thông tin</h2>
+        <p style="color: var(--success-color);"><c:out value="${successMessage}"></c:out></p>
+        <c:remove var="successMessage" scope="session" />
         <form method="POST"
           action="${pageContext.request.contextPath}/trouble/action">
           <input type="hidden" name="id" value="${trouble.id }">
+          
+          <div class="form-item">
+            <label for="name">Cập nhật cuối</label>
+            <fmt:parseDate pattern="yyyy-MM-dd HH:mm:ss" value="${trouble.modified_time}" var="parsed_modified_time" />
+            <input type="text" value='<fmt:formatDate value="${parsed_modified_time}" pattern="HH:mm dd-MM-yyyy" />' disabled readonly>
+          </div>
+          
           <div class="form-item">
             <label for="name">Mô tả ngắn <span>(*)</span></label>
             <textarea name="short_description" rows="3"
@@ -54,29 +63,27 @@
           </div>
 
           <div class="form-item">
-            <label for="description">Chi tiết <span>(*)</span></label>
-            <textarea name="description" rows="5"
+            <label for="detail">Chi tiết <span>(*)</span></label>
+            <textarea name="detail" rows="5"
               placeholder="Chi tiết sự cố" required>${fn:escapeXml(trouble.detail) }</textarea>
           </div>
 
           <div class="form-item">
             <label id="status-label">Trạng thái <span>(*)</span></label>
             <div class="input-container">
-              <label for="status"> <input type="radio"
-                name="status" value="0"
-                ${trouble.status == 0 ? "checked" : ""}> <span
-                class="dot"> Chưa xử lý <i class="bg-danger"></i>
-              </span>
-              </label> <label for="status"> <input type="radio"
-                name="status" value="1"
-                ${trouble.status == 1 ? "checked" : ""}> <span
-                class="dot"> Đang xử lý <i class="bg-warning"></i>
-              </span>
-              </label> <label for="status"> <input type="radio"
-                name="status" value="2"
-                ${trouble.status == 2 ? "checked" : ""}> <span
-                class="dot"> Đã xử lý <i class="bg-success"></i>
-              </span>
+              <label for="status"> 
+                <input type="radio" name="status" value="0" ${trouble.status == 0 ? "checked" : ""}> 
+                <span class="dot" style="color: var(--danger-color);"> Chưa xử lý <i class="bg-danger"></i></span>
+              </label> 
+              
+              <label for="status"> 
+                <input type="radio" name="status" value="1" ${trouble.status == 1 ? "checked" : ""}> 
+                <span class="dot" style="color: var(--warning-color);"> Đang xử lý <i class="bg-warning"></i></span>
+              </label>
+              
+             <label for="status"> 
+                <input type="radio" name="status" value="2" ${trouble.status == 2 ? "checked" : ""}> 
+                <span class="dot" style="color: var(--success-color);"> Đã xử lý <i class="bg-success"></i></span>
               </label>
             </div>
           </div>
@@ -89,14 +96,16 @@
 
           <div class="form-item">
             <!-- Định dạng value: yyyy/mm/dd -->
-            <label for="date">Ngày ghi nhận</label> <input name="date"
-              type="date" id="date" value="${trouble.time_happen.split("")[0]}">
+            <label for="date">Ngày ghi nhận <span>(*)</span></label> 
+            <input name="date"
+              type="date" id="date" value='${trouble.time_happen.split(" ")[0]}' required>
           </div>
           <div class="form-item">
             <!-- Định dạng value: hh/MM -->
-            <label for="date">Thời điểm ghi nhận</label> <input
+            <label for="date">Thời điểm ghi nhận <span>(*)</span></label> 
+            <input
               name="time" type="time" id="time"
-              value="${trouble.time_happen.split("")[1]}">
+              value='${trouble.time_happen.split(" ")[1]}' required>
           </div>
 
           <div class="form-item">
@@ -184,6 +193,12 @@
   <!-- import script -->
   <script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/select.js"></script>
+  <script type="text/javascript">
+    window.onload = () => {
+    	checkTag('tag_risk', 'tag_risk_container');
+      	checkTag('tag_asset', 'tag_asset_container');
+    }
+  </script>
   <!-- end import script -->
 </body>
 
