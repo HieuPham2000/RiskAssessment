@@ -33,3 +33,9 @@ select:hover {
   border: 2px solid var(--input-border-focus);
   background-color: var(--input-bg-focus);
 }
+
+.label-filter {
+  display: inline-block;
+  font-size: 1.5rem; 
+  margin-bottom: 1rem;
+}

@@ -48,10 +48,12 @@
       </c:when>
       <c:otherwise>
       <div class="row">
-      <div class="col-4 col-m-12 col-sm-12">
-        <label for="risk_level">Lọc theo mức độ rủi ro</label> <select
-          name="risk_level">
-          <option value="all">Tất cả</option>
+      <div class="col-3 col-m-12 col-sm-12">
+        <label for="risk_level" class="label-filter">Lọc theo mức độ rủi ro</label> 
+        <select name="risk_level" id="filter" onchange="filterTable()">
+          <option value="all" selected>Tất cả</option>
+          <option value="evaluated">Đã đánh giá</option>
+          <option value="not-be-evaluated">Chưa đánh giá</option>
           <c:forEach items="${risk_levels}" var="risk_level">
             <option value="${fn:escapeXml(risk_level.level)}" style="color: ${risk_level.color};">
             ${fn:escapeXml(risk_level.level)}
@@ -59,19 +61,19 @@
           </c:forEach>
         </select>
       </div>
-      <div class="col-4 col-m-12 col-sm-12">
-        <label for="sort">Sắp xếp</label> <select name="sort">
+      <!-- <div class="col-4 col-m-12 col-sm-12">
+        <label for="sort">Sắp xếp</label> 
+        <select name="sort">
           <option value="modified_time desc">Thời gian cập nhật từ mới đến cũ</option>
           <option value="modified_time asc">Thời gian cập nhật từ cũ đến mới</option>
-          <option value="id asc">Theo ID tăng dần</option>
           <option value="risk">Theo mức độ rủi ro tăng dần</option>
           <option value="likelihood">Theo mức độ tác động tăng dần</option>
           <option value="impact">Theo khả năng xảy ra tăng dần</option>
         </select>
-      </div>
-      <div class="col-4 col-m-12 col-sm-12">
+      </div> -->
+      <div class="col-9 col-m-12 col-sm-12">
         <div>
-          <a class="link_btn" href="${pageContext.request.contextPath}/risk/setting">Cài đặt
+          <a class="link_btn right" href="${pageContext.request.contextPath}/risk/setting">Cài đặt
             thang điểm đánh giá <i class="fas fa-cog"></i>
           </a>
         </div>
@@ -88,7 +90,7 @@
           </div>
 
           <div class="card-content">
-            <p>Số lượng: ${risks.size()}</p>
+            <p>Số lượng: <span id="num-risk">${list.size()}</span></p>
             <table>
               <thead>
                 <tr>
@@ -132,6 +134,7 @@
   <!-- end main content -->
   <!-- import script -->
   <script src="assets/js/index.js"></script>
+  <script src="assets/js/risk_view.js"></script>
   <!-- end import script -->
 </body>
 </html>

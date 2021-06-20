@@ -18,6 +18,7 @@
 
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="assets/css/style_general.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/risk.css">
 </head>
 <body class="overlay-scrollbar">
 
@@ -44,6 +45,15 @@
     </div>
     </c:when>
     <c:otherwise>
+    <div class="col-3 col-m-12 col-sm-12">
+        <label for="filter" class="label-filter">Lọc theo trạng thái</label> 
+        <select id="filter" onchange="filterTable()">
+          <option value="all" selected>Tất cả</option>
+          <option style="color: var(--danger-color);" value="Chưa xử lý">Chưa xử lý</option>
+          <option style="color: var(--warning-color);" value="Đang xử lý">Đang xử lý</option>
+          <option style="color: var(--success-color);" value="Đã xử lý">Đã xử lý</option>
+        </select>
+      </div>
       <div class="row justify-content-center">
       <div class="col-12 col-m-12 col-sm-12">
         <div class="card">
@@ -55,7 +65,7 @@
           </div>
 
           <div class="card-content">
-            <p>Số lượng: ${troubles.size()}</p>
+            <p>Số lượng: <span id="num-trouble">${troubles.size()}</span></p>
             <table>
               <thead>
                 <tr>
@@ -113,6 +123,7 @@
   <!-- end main content -->
   <!-- import script -->
   <script src="assets/js/index.js"></script>
+  <script src="assets/js/trouble_view.js"></script>
   <!-- end import script -->
 </body>
 </html>
