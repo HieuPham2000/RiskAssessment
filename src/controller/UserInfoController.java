@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,51 +8,58 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.UserSystemDAO;
-import dao.impl.UserSystemDAOImpl;
+import dao.UserDAO;
+import dao.impl.UserDAOImpl;
 import model.User;
-import model.UserSystem;
+import utils.MyUtils;
 
-/**
- * Servlet implementation class UserInfoController
- */
-@WebServlet("/userInfo")
+
+@WebServlet("/user/info")
 public class UserInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserInfoController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-//			HttpSession session = request.getSession();
-//			User user = (User)session.getAttribute("user");		
-//
-//			request.setAttribute("user", user);
 
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/views/userInfoView.jsp");
+			User user = MyUtils.getUserInSession(request);
+			request.setAttribute("user", user);
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		String successMessage = "";
+		
+		User user = MyUtils.getUserInSession(request);
+		
+		UserDAO userDAO = new UserDAOImpl();
+		
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		String organization = request.getParameter("organization");
+		String position = request.getParameter("position");
+		
+		
+		user.setName(name);
+		user.setPhone(phone);
+		user.setOrganization(organization);
+		user.setPosition(position);
+		
+		userDAO.updateInfo(user);
+		successMessage = "Cập nhật thông tin thành công!";
+		request.setAttribute("successMessage", successMessage);
+		request.setAttribute("user", user);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/userInfoView.jsp");
+		dispatcher.forward(request, response);
+//		request.getSession().setAttribute("successMessage", successMessage);
+//		String url = request.getHeader("referer");
+//		response.sendRedirect(url);
 	}
 
 }

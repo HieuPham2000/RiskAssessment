@@ -9,12 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.UserSystemDAO;
-import dao.impl.UserSystemDAOImpl;
+import dao.SystemDAO;
+import dao.impl.SystemDAOImpl;
 import model.User;
-import model.UserSystem;
+import utils.MyUtils;
+import model.ITSystem;
 
 @WebServlet("/system")
 public class SystemController extends HttpServlet {
@@ -28,14 +28,18 @@ public class SystemController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		try {
-			HttpSession session = request.getSession();
-			User user = (User)session.getAttribute("user");
+			User user = MyUtils.getUserInSession(request);
 
-			UserSystemDAO userSystemDAO = new UserSystemDAOImpl();
-			List<UserSystem> listUserSystems = userSystemDAO.get(user.getId());
-			request.setAttribute("listUserSystems", listUserSystems);
+			SystemDAO systemDAO = new SystemDAOImpl();
+			ITSystem system = systemDAO.getByUserId(user.getId());
+			request.setAttribute("system", system);
 			
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/views/systemView.jsp");
+			if(system != null) {
+				List<String> images = systemDAO.getImages(system.getId());
+				request.setAttribute("images", images);
+			}
+			
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/systemView.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			response.sendRedirect(request.getContextPath() + "/login");

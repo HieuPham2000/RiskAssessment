@@ -1,79 +1,51 @@
 package model;
 
+import java.util.List;
+
 public class UserSystem {
 	private int id;
-	private String name;
-	private String description;
-	private int user_id;
-	private String created_time;
-	private String modified_time;
+	private ITSystem system;
+	private User user;
 	
 	public UserSystem() {
 		// TODO Auto-generated constructor stub
 	}
-		
-	public UserSystem(int id, String name, String description, int user_id) {
+
+	public UserSystem(int id, ITSystem system, User user) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.user_id = user_id;
+		this.system = system;
+		this.user = user;
 	}
 
-
-	public UserSystem(int id, String name, String description, int user_id, String created_time, String modified_time) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.user_id = user_id;
-		this.created_time = created_time;
-		this.modified_time = modified_time;
-	}
-	
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+
+	public ITSystem getSystem() {
+		return system;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setSystem(ITSystem system) {
+		this.system = system;
 	}
-	public String getDescription() {
-		return description;
+
+	public User getUser() {
+		return user;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-	public String getCreated_time() {
-		return created_time;
-	}
-	public void setCreated_time(String created_time) {
-		this.created_time = created_time;
-	}
-	public String getModified_time() {
-		return modified_time;
-	}
-	public void setModified_time(String modified_time) {
-		this.modified_time = modified_time;
-	}
+
 	@Override
 	public String toString() {
-		return "System [id=" + id + ", name=" + name + ", description=" + description + ", user_id=" + user_id
-				+ ", created_time=" + created_time + ", modified_time=" + modified_time + "]";
+		return "UserSystem [id=" + id + ", system=" + system + ", user=" + user + "]";
 	}
-	
-	
 	
 	
 }

@@ -5,13 +5,25 @@ public class ImpactLevel {
 	private int id;
 	private String level;
 	private int score;
+	private String color;
+	private int system_id;
 	
-	public ImpactLevel(int id, String level, int score) {
+	public ImpactLevel() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public ImpactLevel(int id, String level, int score, String color, int system_id) {
 		super();
 		this.id = id;
 		this.level = level;
 		this.score = score;
+		this.color = color;
+		this.system_id = system_id;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -37,10 +49,30 @@ public class ImpactLevel {
 		this.score = score;
 	}
 
-	@Override
-	public String toString() {
-		return "ImpactLevel [id=" + id + ", level=" + level + ", score=" + score + "]";
+	public String getColor() {
+		return color;
 	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+
+
+	public int getSystem_id() {
+		return system_id;
+	}
+
+
+
+	public void setSystem_id(int system_id) {
+		this.system_id = system_id;
+	}
+
+	
+
+	
+	
 	
 	
 	
