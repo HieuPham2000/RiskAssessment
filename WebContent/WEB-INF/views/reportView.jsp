@@ -29,7 +29,7 @@
 	<div class="wrapper">
 		<p class="link_mark">Home > Thống kê và báo cáo</p>
 		<div class="col-12 col-m-12 col-sm-12">
-				<a class="link_btn right" href="#">Xuất báo cáo <i class="fas fa-file"></i></a>
+				<a class="link_btn right" href="${pageContext.request.contextPath}/download">Xuất báo cáo đánh giá rủi ro <i class="fas fa-file"></i></a>
 		</div>
 
         <div class="row">
